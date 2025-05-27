@@ -1,0 +1,97 @@
+@startuml
+title Hundir la Flota - Diseño Final (POO + Enums)
+
+' ENUMS
+enum ShipType {
+    LANCHA (1)
+    BUQUE (3)
+    ACORAZADO (4)
+    PORTAVIONES (5)
+    +getSize(): int
+}
+
+enum CellStatus {
+    EMPTY
+    SHIP
+    MISS
+    HIT
+}
+
+' CLASES NORMALES
+class Coordinate {
+    -row: int
+    -column: int
+    +Coordinate(row: int, column: int)
+    +getRow(): int
+    +getColumn(): int
+    +equals(Coordinate): boolean
+}
+
+class Ship {
+    -type: ShipType
+    -coordinates: List<Coordinate>
+    -hitCoordinates: Set<Coordinate>
+    +Ship(type: ShipType, coordinates: List<Coordinate>)
+    +registerHitAt(Coordinate): boolean
+    +isSunk(): boolean
+    +getCoordinates(): List<Coordinate>
+    +getType(): ShipType
+}
+
+class Cell {
+    -ship: Ship
+    -status: CellStatus
+    +Cell()
+    +placeShip(Ship): void
+    +processHit(): CellStatus
+    +hasShip(): boolean
+    +isHit(): boolean
+    +getStatus(): CellStatus
+    +display(revealShips: boolean): char
+}
+
+class Board {
+    -grid: Cell[][]
+    -ships: List<Ship>
+    +Board(rows: int, columns: int)
+    +placeShip(Ship, Coordinate, boolean): boolean
+    +receiveShot(Coordinate): CellStatus
+    +isAllShipsSunk(): boolean
+    +display(revealShips: boolean): void
+}
+
+class Player {
+    -name: String
+    -board: Board
+    +Player(name: String, boardRows: int, boardColumns: int)
+    +shootAt(Player, Coordinate): CellStatus
+    +hasLost(): boolean
+    +getBoard(): Board
+}
+
+class Game {
+    -players: List<Player>
+    -currentPlayer: Player
+    +start(): void
+    +setupGame(): void
+    +switchTurn(): void
+    +isGameOver(): boolean
+    +getWinner(): Player
+}
+
+class Main {
+    +main(args: String[]): void
+}
+
+' RELACIONES
+Main --> Game : crea
+Game --> Player : gestiona
+Player --> Board : posee
+Board --> Cell : contiene
+Board --> Ship : contiene
+Cell --> Ship : referencia
+Ship --> Coordinate : contiene
+Ship --> ShipType : usa
+Cell --> CellStatus : usa
+
+@enduml
