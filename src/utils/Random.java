@@ -8,8 +8,8 @@ class RandomCellGenerator {
 
     public RandomCellGenerator(Board board) {
         int max = board.getSize();
-        int randomRow = (int) (Math.random() * (max + 1));
-        int randomColumn = (int) (Math.random() * (max + 1));
+        int randomRow = (int) (Math.random() * max);
+        int randomColumn = (int) (Math.random() * max);
         this.cell = board.getCell(randomRow, randomColumn);
     }
 

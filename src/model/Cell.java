@@ -22,7 +22,7 @@ public class Cell {
         return this.coordinate;
     }
 
-    public void placeShip(Ship ship) {
+    public void setShip(Ship ship) {
 
         this.ship = ship;
         this.status = CellStatus.SHIP;
