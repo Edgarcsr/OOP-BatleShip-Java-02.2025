@@ -18,6 +18,16 @@ public class Cell {
         this.coordinate = coordinates;
     }
 
+    public void processHit( Coordinate coords ) {
+
+        if(status == CellStatus.EMPTY) {
+            status = CellStatus.MISS;
+        } else {
+            ship.registryHitAt(coords);
+            status = CellStatus.HIT;
+        }
+    }
+
     public Coordinate getCoordinate() {
         return this.coordinate;
     }
@@ -28,27 +38,20 @@ public class Cell {
         this.status = CellStatus.SHIP;
     }
 
-    public void processHit() {
-
-        if(status != CellStatus.EMPTY) {
-            ship.registryHitAt(coordinate);
-            status = CellStatus.HIT;
-        } else {
-            status = CellStatus.MISS;
-        }
-    }
-
     public boolean hasShip() {
-        return ship != null;
+        return status != CellStatus.EMPTY && status != CellStatus.MISS;
     }
 
-    public ShipType getShipType() {
-
-        return (hasShip()) ? ship.getType() : null;
+    public CellStatus getCellStatus() {
+        return this.status;
     }
 
     public boolean isHit() {
         return status == CellStatus.HIT;
+    }
+
+    public boolean isMiss() {
+        return status == CellStatus.MISS;
     }
 
     public String display(boolean reveal) {

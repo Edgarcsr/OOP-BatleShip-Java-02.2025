@@ -3,7 +3,7 @@ import model.Board;
 import model.Cell;
 
 
-class RandomCellGenerator {
+public class RandomCellGenerator {
     private final Cell cell;
 
     public RandomCellGenerator(Board board) {
