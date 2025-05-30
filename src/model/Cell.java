@@ -22,7 +22,7 @@ public class Cell {
 
         if(status == CellStatus.EMPTY) {
             status = CellStatus.MISS;
-        } else {
+        } else if( status == CellStatus.SHIP) {
             ship.registryHitAt(coords);
             status = CellStatus.HIT;
         }
@@ -38,20 +38,16 @@ public class Cell {
         this.status = CellStatus.SHIP;
     }
 
+    public Ship getShip() {
+        return this.ship;
+    }
+
     public boolean hasShip() {
         return status != CellStatus.EMPTY && status != CellStatus.MISS;
     }
 
     public CellStatus getCellStatus() {
         return this.status;
-    }
-
-    public boolean isHit() {
-        return status == CellStatus.HIT;
-    }
-
-    public boolean isMiss() {
-        return status == CellStatus.MISS;
     }
 
     public String display(boolean reveal) {

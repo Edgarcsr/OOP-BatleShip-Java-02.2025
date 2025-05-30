@@ -9,24 +9,22 @@ import java.util.Set;
 public class Ship {
     private final ShipType type;
     private Orientation orientation;
-    private Set<Coordinate> coordinates = new HashSet<>(getType().getSize());
-    private final Set<Coordinate> hitsCoordinates = new HashSet<>(getType().getSize());
+    private Set<Coordinate> coordinates = new HashSet<>();
+    private final Set<Coordinate> hitsCoordinates = new HashSet<>();
 
 
-    public Ship(ShipType type, Orientation orientation, Set<Coordinate> coordinates) {
+    public Ship(ShipType type, Orientation orientation) {
         this.type = type;
         this.orientation = orientation;
-        this.coordinates = coordinates;
     }
 
     public Set<Coordinate> getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates( Coordinate coordinates ) {
-        this.coordinates.add(coordinates);
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinates.add(coordinate);
     }
-
     public boolean registryHitAt(Coordinate coords) {
         return coordinates.contains(coords) && hitsCoordinates.add(coords);
     }
