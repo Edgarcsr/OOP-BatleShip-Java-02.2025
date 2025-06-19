@@ -21,11 +21,13 @@ public class TestBoard {
         // 1 acorazado
         ships.add(new Ship(ShipType.ACORAZADO, Orientation.HORIZONTAL));
         // 1 portaaviones
-        ships.add(new Ship(ShipType.PORTAVIONES, Orientation.HORIZONTAL));
+        ships.add(new Ship(ShipType.PORTAVIONES, Orientation.VERTICAL));
+        ships.add(new Ship(ShipType.PORTAVIONES, Orientation.VERTICAL));
 
-        Board board = new Board(10, 10, ships);
+        Board board = new Board(12, 12, ships);
         board.placeShips();
-        board.printBoard(true); // Mostrar barcos
+        board.printBoard(true); // Mostrar barcosç
+        System.out.println(board.toString());
     }
 }
 

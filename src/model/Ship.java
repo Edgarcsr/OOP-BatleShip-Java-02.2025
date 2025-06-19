@@ -2,14 +2,13 @@ package model;
 import enums.Orientation;
 import enums.ShipType;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
 public class Ship {
     private final ShipType type;
-    private Orientation orientation;
-    private Set<Coordinate> coordinates = new HashSet<>();
+    private final Orientation orientation;
+    private final Set<Coordinate> coordinates = new HashSet<>();
     private final Set<Coordinate> hitsCoordinates = new HashSet<>();
 
 

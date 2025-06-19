@@ -41,12 +41,13 @@ public class Board {
     }
 
     public void placeShips() {
-        int numberOfShips = ships.size() - 1;
+        int numberOfShips = ships.size();
+        Cell randomCell;
+        Ship boat;
 
         while(numberOfShips > 0) {
-
-            Cell randomCell = randomCellGenerator.getCell();
-            Ship boat = ships.get(numberOfShips);
+            randomCell = randomCellGenerator.getCell();
+            boat = ships.get(numberOfShips -1);
 
             if(validatePlacement(boat, randomCell)) {
                 placeBoat(boat, randomCell);
@@ -78,56 +79,67 @@ public class Board {
         int size = ship.getType().getSize();
         int startRow = placeInit.getCoordinate().getRow();
         int startCol = placeInit.getCoordinate().getColumn();
+        int rowLength = grid.length;
+        int colLength = grid[0].length;
 
         if (ship.getOrientation() == Orientation.HORIZONTAL) {
             // Verifica límites
-            if (!keepBoundaries(placeInit, size)) return false;
-            // Verifica espacio para el barco y dos celdas a cada lado
-            for (int i = -2; i < size + 2; i++) {
-                int col = startCol + i;
-                if (col >= 0 && col < grid[0].length) {
-                    if (grid[startRow][col].hasShip()) return false;
+            if (keepBoundaries(placeInit, size, ship.getOrientation())) return false;
+            //Disponibilidad en horizontal y si al final del barco hay dos espacios libres
+            for(int i = 0 ; i < size + 2; i++) {
+                if (startCol + i < colLength && grid[startRow][startCol + i].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libre hacia la izquierda en horizontal
+            for (int i = 1; i <= 2; i++) {
+                if (startCol - i >= 0 && grid[startRow][startCol - i].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libre hacia abajo en vertical
+            if(startRow < grid.length - 1){
+                for(int i = 1; i <= 2; i++){
+                    if (startRow + i < rowLength  && grid[startRow+i][startCol].hasShip()) return false;
                 }
             }
-            // Verifica dos filas arriba y abajo del barco
-            for (int offset = -2; offset <= 2; offset++) {
-                int col = startCol + offset;
-                if (col >= 0 && col < grid[0].length) {
-                    for (int rowDelta = -2; rowDelta <= 2; rowDelta++) {
-                        int row = startRow + rowDelta;
-                        if (row >= 0 && row < grid.length && rowDelta != 0) {
-                            if (grid[row][col].hasShip()) return false;
-                        }
-                    }
+            // Comprueba si hay dos posiciones libre hacia arriba en vertical
+            if(startRow > 0){
+                for(int i = 1; i <= 2; i++){
+                    if (startRow - i >= 0  && grid[startRow-i][startCol].hasShip() ) return false;
                 }
             }
         } else { // VERTICAL
-            if (!keepBoundaries(placeInit, size)) return false;
-            for (int i = -2; i < size + 2; i++) {
-                int row = startRow + i;
-                if (row >= 0 && row < grid.length) {
-                    if (grid[row][startCol].hasShip()) return false;
+            if (keepBoundaries(placeInit, size, ship.getOrientation())) return false;
+            // Disponibilidad de las posiciones del tamaño del barco hacia abajo en vertical y si guarda una distancia de dos posiciones entre barcos
+            for(int i = 0 ; i < size + 2 ; i++){
+                if(startRow + i < colLength && grid[startRow + i][startCol].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libre hacia arriba en vertical
+            for(int i = 1; i <= 2; i++){
+                if(startRow - i >= 0 && grid[startRow-i][startCol].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libre hacia la derecha en horizontal
+            if(startCol < colLength-1){
+                for(int i = 1; i <= 2; i++){
+                    if(startCol + i < colLength && grid[startRow][startCol+i].hasShip()) return false;
                 }
             }
-            for (int offset = -2; offset <= 2; offset++) {
-                int row = startRow + offset;
-                if (row >= 0 && row < grid.length) {
-                    for (int colDelta = -2; colDelta <= 2; colDelta++) {
-                        int col = startCol + colDelta;
-                        if (col >= 0 && col < grid[0].length && colDelta != 0) {
-                            if (grid[row][col].hasShip()) return false;
-                        }
-                    }
+            // Comprueba si hay dos posiciones libre hacia la izquierda en horizontal
+            if(startCol > 0){
+                for(int i = 1; i <= 2; i++){
+                    if(startCol - i >= 0 && grid[startRow][startCol-i].hasShip()) return false;
                 }
             }
         }
         return true;
     }
 
-    private boolean keepBoundaries(Cell cellProposal, int size ) {
+    private boolean keepBoundaries(Cell cellProposal, int size, Orientation orientation ) {
+        int row = cellProposal.getCoordinate().getRow();
+        int col = cellProposal.getCoordinate().getColumn();
 
-        int init = cellProposal.getCoordinate().getRow();
-        return  init + size  <=  grid.length - init;
+        if (orientation == Orientation.HORIZONTAL) {
+            return col + size > grid[0].length;
+        } else {
+            return row + size > grid.length;
+        }
     }
 
     public int getSize() {
