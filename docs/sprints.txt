@@ -21,6 +21,8 @@ Cada jugador tiene su propio tablero y puede realizar disparos sobre el tablero 
 Resultado esperado:
 Dos tipos de jugadores funcionales, capaces de interactuar con el tablero y realizar disparos válidos.
 
+COMPLETADO
+
 <hr></hr>
 Sprint 4: Lógica del juego
 Objetivo:
