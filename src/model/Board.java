@@ -1,6 +1,7 @@
 package  model;
 
 import enums.CellStatus;
+import enums.Difficulty;
 import enums.Orientation;
 import utils.RandomCellGenerator;
 
@@ -15,10 +16,10 @@ public class Board {
     private List<String> successfullShots = new ArrayList<>();
     private List<String> destructiveShoots = new ArrayList<>();
     private String unespectedResult = "No se ha procesado el disparo correctamente";
-
+    private int defaultSizeOfBoard = Difficulty.EASY.getBoardSize();
 
     public Board() {
-        grid = new Cell[10][10];
+        grid = new Cell[defaultSizeOfBoard][defaultSizeOfBoard];
         for ( int i = 0; i < grid.length; i++ ) {
             for( int j = 0; j < grid[i].length; j++ ) {
                 grid[i][j] = new Cell( new Coordinate(i, j) );
@@ -153,7 +154,7 @@ public class Board {
     public void registryShot( Coordinate coordinate ) {
         Cell cell = grid[coordinate.getRow()][coordinate.getColumn()];
         if( cell.getCellStatus() == CellStatus.MISS || cell.getCellStatus() == CellStatus.HIT ) {
-            getResultShoot("Ya has disparado a esa celda, intentalo otra vez");
+            getResultShoot("Ya has disparado a esta celda. No desperdicies disparos");
             return;
         }
 
@@ -232,5 +233,16 @@ public class Board {
             System.out.println("+");
         }
         System.out.println();
+    }
+
+    public boolean isAllShipsSunk() {
+        for (Cell[] row : grid) {
+            for (Cell cell : row) {
+                if (cell.hasShip() && !cell.getShip().isSunk()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
