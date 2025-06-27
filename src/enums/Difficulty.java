@@ -23,7 +23,7 @@ public enum Difficulty {
     MEDIUM(2, 1, 1, 1, 30, 10),
     HARD(1, 1, 0, 0, 10, 10);
 
-    int lanchas,
+    final int lanchas,
         buques,
         acorazados,
         portaaviones,
@@ -54,7 +54,6 @@ public enum Difficulty {
             case BUQUE -> buques;
             case ACORAZADO -> acorazados;
             case PORTAVIONES -> portaaviones;
-            default -> throw new IllegalArgumentException("Unknown ship type: " + shipType);
         };
     }
 
