@@ -21,6 +21,9 @@ public class HumanPlayer extends Player {
         if(attempts > 0) {
             Coordinate coordinatesChosen = getShotCoordinate();
 
+            if(attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
+            else if(attempts == 1) System.out.println("¡Último intento!");
+
             if (suggestGotFailShot(coordinatesChosen)) {
                 System.out.printf("%s veo poco éxito en tu decisión.\n", name);
             } else {
@@ -29,14 +32,13 @@ public class HumanPlayer extends Player {
                 checkAttempts();
             }
         }else {
-            if(attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
-            else if(attempts == 1) System.out.println("¡Último intento!");
             System.out.println("Has agotado tus intentos, ¡mejor suerte la próxima vez!");
         }
 
     }
 
-    private Coordinate getShotCoordinate() {
+
+    public Coordinate getShotCoordinate() {
         int row, column;
         Scanner scanner = new Scanner(System.in);
 
