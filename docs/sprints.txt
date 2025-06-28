@@ -1,87 +1,127 @@
-Plan de Sprints para el desarrollo del juego
-
-Sprint 1: Configuración inicial y estructura básica.
-
-	Objetivo: Crear la estructura del proyecto y las clases base.
-
-	Tareas:
-		Configurar el proyecto en el IDE.
-		Crear los paquetes (model, enums, game, main).
-		Implementar las clases base:
-		ShipType (ya implementada).
-		Cell (representa una celda del tablero).
-		Board (representa el tablero del juego).
-		Crear la clase Main con un mensaje inicial para verificar la ejecución.
-	Entrega: Proyecto estructurado con las clases base y un programa ejecutable.
-			<hr></hr>
-		
-Sprint 2: Lógica del tablero y colocación de barcos
-
-	Objetivo: Implementar la lógica para manejar el tablero y colocar barcos.
-
-	Tareas:
-		Completar la clase Board con métodos para:
-		Inicializar el tablero.
-		Colocar barcos en posiciones válidas.
-		Implementar la clase Ship con atributos como tipo y coordenadas.
-		Crear pruebas básicas para verificar la colocación de barcos.
-	Entrega: Tablero funcional con lógica de colocación de barcos.
-	<hr></hr>
-
 Sprint 3: Gestión de jugadores
+Objetivo:
+Implementar la clase Player y la lógica básica de interacción de los jugadores con el tablero.
 
-	Objetivo: Implementar la clase Player y la interacción básica con el tablero.
+Implementaciones:
 
-	Tareas:
-		Crear la clase Player con atributos como nombre y tablero.
-		Añadir métodos para que el jugador realice acciones (e.g., disparar).
-		Implementar validaciones para los disparos (coordenadas válidas, celdas ya atacadas).
-	Entrega: Jugadores funcionales con interacción básica.
 
+Clase Player (abstracta):
+Atributos: nombre, referencia a su propio tablero, métodos abstractos para disparar.
+Métodos:
+getName(), getBoard(), y un método abstracto nextShot() para obtener la coordenada de disparo.
+Subclases de Player:
+HumanPlayer:
+Solicita coordenadas al usuario por consola, valida la entrada y devuelve la coordenada.
+CPUPlayer:
+Genera disparos aleatorios (o con lógica según dificultad), asegurando que no repite disparos.
+Validaciones:
+Comprobar que las coordenadas de disparo sean válidas y que la celda no haya sido atacada antes.
+Integración:
+Cada jugador tiene su propio tablero y puede realizar disparos sobre el tablero del oponente.
+Resultado esperado:
+Dos tipos de jugadores funcionales, capaces de interactuar con el tablero y realizar disparos válidos.
+
+TODO: corregir errores en el test de Players
+
+<hr></hr>
 Sprint 4: Lógica del juego
+Objetivo:
+Implementar la clase Game para gestionar el flujo completo de la partida.
 
-	Objetivo: Implementar la clase Game para gestionar el flujo del juego.
+Implementaciones:
 
-	Tareas:
-		Crear la clase Game con métodos para:
-		Configurar el juego (tableros, jugadores).
-		Gestionar turnos.
-		Determinar el ganador.
-		Integrar la clase Main para iniciar el juego.
-	Entrega: Juego funcional con turnos y condiciones de victoria.
 
+Clase Game:
+Atributos: referencias a los dos jugadores (Player), control de turnos, estado de la partida.
+Métodos:
+setupGame(): inicializa tableros y jugadores según el modo elegido.
+play(): bucle principal del juego, alternando turnos entre jugadores.
+checkVictory(): determina si un jugador ha ganado (todos los barcos del rival hundidos).
+showBoards(): muestra los tableros según el turno y el modo.
+Turnos:
+Alternancia entre jugadores (humano vs humano o humano vs CPU).
+Condiciones de fin:
+Victoria: todos los barcos del oponente hundidos.
+Derrota: sin intentos restantes (si aplica).
+Integración con Main:
+Llama a la clase Game para iniciar la partida.
+Resultado esperado:
+Partida jugable de principio a fin, con turnos y condiciones de victoria/derrota.
+
+<hr></hr>
 Sprint 5: Interfaz de usuario básica
+Objetivo:
+Mejorar la interacción con el usuario a través de la consola.
 
-	Objetivo: Mejorar la interacción con el usuario mediante una interfaz de consola.
-	Tareas:
-		Mostrar el tablero en consola.
-		Solicitar y validar entradas del usuario (coordenadas, acciones).
-		Añadir mensajes claros para guiar al jugador.
-	Entrega: Interfaz de consola funcional y amigable.
+Implementaciones:
 
+
+Visualización de tableros:
+Mostrar el tablero propio y el del oponente (ocultando barcos no descubiertos).
+Entrada de usuario:
+Solicitar coordenadas de disparo, validar y mostrar mensajes claros de error si la entrada es incorrecta.
+Mensajes:
+Informar al usuario de los resultados de cada disparo (“Tocado”, “Agua”, “Hundido”).
+Mensajes de victoria, derrota y resumen de la partida.
+Flujo amigable:
+Permitir reiniciar o salir tras finalizar la partida.
+Resultado esperado:
+Interfaz de consola clara y funcional, con mensajes útiles y validaciones robustas.
+
+<hr></hr>
 Sprint 6: Jugador CPU
+Objetivo:
+Implementar la lógica de un jugador CPU y su integración en el juego.
 
-	Objetivo: Implementar un jugador CPU con lógica básica.
-	Tareas:
-		Extender la clase Player para crear un jugador CPU.
-		Implementar lógica para que el CPU realice disparos aleatorios.
-		Integrar el jugador CPU en la clase Game.
-	Entrega: Juego funcional con un jugador humano contra un jugador CPU.
+Implementaciones:
 
+
+Extensión de Player:
+CPUPlayer implementa la lógica de disparo automático (aleatorio o con estrategia).
+Integración en Game:
+Permitir elegir entre modo Jugador vs Jugador y Jugador vs CPU.
+Gestionar turnos correctamente según el modo.
+Validaciones:
+Asegurar que el CPU no repite disparos y que sus acciones son válidas.
+Resultado esperado:
+Modo Jugador vs CPU completamente funcional, con disparos automáticos y alternancia de turnos.
+
+<hr></hr>
 Sprint 7: Mejoras y optimización
+Objetivo:
+Refinar el juego, corregir errores y mejorar el rendimiento y la experiencia.
 
-	Objetivo: Refinar el juego y corregir errores.
-	Tareas:
-		Optimizar la lógica del juego y el rendimiento.
-		Añadir pruebas unitarias para las clases principales.
-		Documentar el código y el proyecto.
-	Entrega: Juego optimizado, probado y documentado.
+Implementaciones:
 
+
+Optimización de código:
+Revisar y mejorar la lógica de validación de colocación de barcos y disparos.
+Pruebas unitarias:
+Añadir tests para las clases principales (Board, Player, Game).
+Documentación:
+Comentar el código y crear documentación básica del proyecto.
+Corrección de errores:
+Solucionar bugs detectados durante las pruebas.
+Resultado esperado:
+Juego robusto, probado y documentado, listo para entrega o ampliación.
+
+<hr></hr>
 Sprint 8: Funcionalidades avanzadas (opcional)
+Objetivo:
+Añadir características extra para enriquecer el juego.
 
-	Objetivo: Añadir características adicionales.
-	Tareas:
-		Implementar diferentes niveles de dificultad para el jugador CPU.
-		Añadir soporte para guardar y cargar partidas.
-		Mejorar la interfaz de usuario (e.g., gráficos en consola).
-	Entrega: Juego con funcionalidades avanzadas.
+Implementaciones:
+
+
+Niveles de dificultad para la CPU:
+Lógica de disparo más inteligente según el nivel.
+Modo personalizado:
+Permitir al usuario definir tamaño de tablero, número de barcos e intentos.
+Guardar/cargar partidas:
+Serializar el estado del juego para continuar más tarde.
+Mejoras visuales:
+Gráficos en consola, estadísticas, ranking de jugadores, etc.
+Resultado esperado:
+Juego ampliado con opciones avanzadas y personalización.
+
+<hr></hr> Con este desglose, puedes retomar el proyecto en cualquier sprint y saber exactamente qué implementar y cómo continuar.

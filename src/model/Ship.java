@@ -2,20 +2,21 @@ package model;
 import enums.Orientation;
 import enums.ShipType;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
 public class Ship {
     private final ShipType type;
-    private Orientation orientation;
-    private Set<Coordinate> coordinates = new HashSet<>();
-    private final Set<Coordinate> hitsCoordinates = new HashSet<>();
+    private final Orientation orientation;
+    private final Set<Coordinate> coordinates;
+    private final Set<Coordinate> hitsCoordinates;
 
 
     public Ship(ShipType type, Orientation orientation) {
         this.type = type;
         this.orientation = orientation;
+        this.coordinates = new HashSet<>();
+        this.hitsCoordinates = new HashSet<>();
     }
 
     public Set<Coordinate> getCoordinates() {
@@ -25,8 +26,9 @@ public class Ship {
     public void setCoordinate(Coordinate coordinate) {
         this.coordinates.add(coordinate);
     }
-    public boolean registryHitAt(Coordinate coords) {
-        return coordinates.contains(coords) && hitsCoordinates.add(coords);
+
+    public void registryHitAt(Coordinate coords) {
+        hitsCoordinates.add(coords);
     }
 
     public boolean isSunk() {

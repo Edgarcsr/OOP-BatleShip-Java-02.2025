@@ -1,6 +1,7 @@
 package  model;
 
 import enums.CellStatus;
+import enums.Difficulty;
 import enums.Orientation;
 import utils.RandomCellGenerator;
 
@@ -11,14 +12,13 @@ public class Board {
     private final Cell[][] grid;
     private List<Ship> ships;
     private final RandomCellGenerator randomCellGenerator;
-    private List<String> missedShoots = new ArrayList<>();
-    private List<String> successfullShots = new ArrayList<>();
-    private List<String> destructiveShoots = new ArrayList<>();
-    private String unespectedResult = "No se ha procesado el disparo correctamente";
-
+    final private List<String> missedShoots = new ArrayList<>();
+    final private List<String> successfullyShots = new ArrayList<>();
+    final private List<String> destructiveShoots = new ArrayList<>();
 
     public Board() {
-        grid = new Cell[10][10];
+        int defaultSizeOfBoard = Difficulty.EASY.getBoardSize();
+        grid = new Cell[defaultSizeOfBoard][defaultSizeOfBoard];
         for ( int i = 0; i < grid.length; i++ ) {
             for( int j = 0; j < grid[i].length; j++ ) {
                 grid[i][j] = new Cell( new Coordinate(i, j) );
@@ -41,12 +41,13 @@ public class Board {
     }
 
     public void placeShips() {
-        int numberOfShips = ships.size() - 1;
+        int numberOfShips = ships.size();
+        Cell randomCell;
+        Ship boat;
 
         while(numberOfShips > 0) {
-
-            Cell randomCell = randomCellGenerator.getCell();
-            Ship boat = ships.get(numberOfShips);
+            randomCell = randomCellGenerator.getCell();
+            boat = ships.get(numberOfShips -1);
 
             if(validatePlacement(boat, randomCell)) {
                 placeBoat(boat, randomCell);
@@ -69,7 +70,7 @@ public class Board {
                 grid[startRow + i][startColumn].setShip(boat);
 
             }
-            boat.setCoordinate(place.getCoordinate());
+            boat.setCoordinate(new Coordinate(startRow + i, startColumn + i));
         }
     }
 
@@ -78,56 +79,67 @@ public class Board {
         int size = ship.getType().getSize();
         int startRow = placeInit.getCoordinate().getRow();
         int startCol = placeInit.getCoordinate().getColumn();
+        int rowLength = grid.length;
+        int colLength = grid[0].length;
 
         if (ship.getOrientation() == Orientation.HORIZONTAL) {
             // Verifica límites
-            if (!keepBoundaries(placeInit, size)) return false;
-            // Verifica espacio para el barco y dos celdas a cada lado
-            for (int i = -2; i < size + 2; i++) {
-                int col = startCol + i;
-                if (col >= 0 && col < grid[0].length) {
-                    if (grid[startRow][col].hasShip()) return false;
+            if (keepBoundaries(placeInit, size, ship.getOrientation())) return false;
+            //Disponibilidad en horizontal y si al final del barco hay dos espacios libres
+            for(int i = 0 ; i < size + 2; i++) {
+                if (startCol + i < colLength && grid[startRow][startCol + i].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libres hacia la izquierda en horizontal
+            for (int i = 1; i <= 2; i++) {
+                if (startCol - i >= 0 && grid[startRow][startCol - i].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libres hacia abajo en vertical
+            if(startRow < grid.length - 1){
+                for(int i = 1; i <= 2; i++){
+                    if (startRow + i < rowLength  && grid[startRow+i][startCol].hasShip()) return false;
                 }
             }
-            // Verifica dos filas arriba y abajo del barco
-            for (int offset = -2; offset <= 2; offset++) {
-                int col = startCol + offset;
-                if (col >= 0 && col < grid[0].length) {
-                    for (int rowDelta = -2; rowDelta <= 2; rowDelta++) {
-                        int row = startRow + rowDelta;
-                        if (row >= 0 && row < grid.length && rowDelta != 0) {
-                            if (grid[row][col].hasShip()) return false;
-                        }
-                    }
+            // Comprueba si hay dos posiciones libres hacia arriba en vertical
+            if(startRow > 0){
+                for(int i = 1; i <= 2; i++){
+                    if (startRow - i >= 0  && grid[startRow-i][startCol].hasShip() ) return false;
                 }
             }
         } else { // VERTICAL
-            if (!keepBoundaries(placeInit, size)) return false;
-            for (int i = -2; i < size + 2; i++) {
-                int row = startRow + i;
-                if (row >= 0 && row < grid.length) {
-                    if (grid[row][startCol].hasShip()) return false;
+            if (keepBoundaries(placeInit, size, ship.getOrientation())) return false;
+            // Disponibilidad de las posiciones del tamaño del barco hacia abajo en vertical y si guarda una distancia de dos posiciones entre barcos
+            for(int i = 0 ; i < size + 2 ; i++){
+                if(startRow + i < colLength && grid[startRow + i][startCol].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libres hacia arriba en vertical
+            for(int i = 1; i <= 2; i++){
+                if(startRow - i >= 0 && grid[startRow-i][startCol].hasShip()) return false;
+            }
+            // Comprueba si hay dos posiciones libres hacia la derecha en horizontal
+            if(startCol < colLength-1){
+                for(int i = 1; i <= 2; i++){
+                    if(startCol + i < colLength && grid[startRow][startCol+i].hasShip()) return false;
                 }
             }
-            for (int offset = -2; offset <= 2; offset++) {
-                int row = startRow + offset;
-                if (row >= 0 && row < grid.length) {
-                    for (int colDelta = -2; colDelta <= 2; colDelta++) {
-                        int col = startCol + colDelta;
-                        if (col >= 0 && col < grid[0].length && colDelta != 0) {
-                            if (grid[row][col].hasShip()) return false;
-                        }
-                    }
+            // Comprueba si hay dos posiciones libres hacia la izquierda en horizontal
+            if(startCol > 0){
+                for(int i = 1; i <= 2; i++){
+                    if(startCol - i >= 0 && grid[startRow][startCol-i].hasShip()) return false;
                 }
             }
         }
         return true;
     }
 
-    private boolean keepBoundaries(Cell cellProposal, int size ) {
+    private boolean keepBoundaries(Cell cellProposal, int size, Orientation orientation ) {
+        int row = cellProposal.getCoordinate().getRow();
+        int col = cellProposal.getCoordinate().getColumn();
 
-        int init = cellProposal.getCoordinate().getRow();
-        return  init + size  <=  grid.length - init;
+        if (orientation == Orientation.HORIZONTAL) {
+            return col + size > grid[0].length;
+        } else {
+            return row + size > grid.length;
+        }
     }
 
     public int getSize() {
@@ -141,27 +153,28 @@ public class Board {
     public void registryShot( Coordinate coordinate ) {
         Cell cell = grid[coordinate.getRow()][coordinate.getColumn()];
         if( cell.getCellStatus() == CellStatus.MISS || cell.getCellStatus() == CellStatus.HIT ) {
-            getResultShoot("Ya has disparado a esa celda, intentalo otra vez");
+            getResultShoot("Ya has disparado a esta celda. No desperdicies disparos");
             return;
         }
 
         cell.processHit(coordinate);
 
+        String unexpectedResult = "No se ha procesado el disparo correctamente";
         switch (cell.getCellStatus()) {
             case MISS:
                 missedShoots.add("fallado en: " + coordinate.getRow() + "," + coordinate.getColumn());
                 getResultShoot(missedShoots.getLast());
                 break;
             case HIT:
-                successfullShots.add("acertado en: " + coordinate.getRow() + "," + coordinate.getColumn());
-                getResultShoot(successfullShots.getLast());
+                successfullyShots.add("acertado en: " + coordinate.getRow() + "," + coordinate.getColumn());
+                getResultShoot(successfullyShots.getLast());
                 if (cell.getShip().isSunk()) {
                     destructiveShoots.add("hundido un: " + cell.getShip().getType());
                     getResultShoot(destructiveShoots.getLast());
                 }
                 break;
             default:
-                System.out.println(unespectedResult + " Reinicia el juego ");
+                System.out.println(unexpectedResult + " Reinicia el juego ");
         }
     }
 
@@ -170,13 +183,13 @@ public class Board {
     }
 
     public void printPerformanceRank() {
-        int totalShoots = missedShoots.size() + successfullShots.size();
+        int totalShoots = missedShoots.size() + successfullyShots.size();
         if (totalShoots == 0) {
             System.out.println("No se han realizado disparos.");
             return;
         }
         double failurePercentage = (double) missedShoots.size() / totalShoots * 100;
-        double correctPercentage = (double) successfullShots.size() / totalShoots * 100;
+        double correctPercentage = (double) successfullyShots.size() / totalShoots * 100;
         double destructivePercentage = (double) destructiveShoots.size() / totalShoots * 100;
 
         String rango;
@@ -220,5 +233,16 @@ public class Board {
             System.out.println("+");
         }
         System.out.println();
+    }
+
+    public boolean isAllShipsSunk() {
+        for (Cell[] row : grid) {
+            for (Cell cell : row) {
+                if (cell.hasShip() && !cell.getShip().isSunk()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

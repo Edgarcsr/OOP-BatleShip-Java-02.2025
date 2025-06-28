@@ -21,4 +21,11 @@ public class Coordinate {
     public void setColumn(int column) {
         this.column = column;
     }
+
+    public String toString() {
+        return "{" +
+                "row=" + row +
+                ", column=" + column +
+                '}';
+    }
 }
