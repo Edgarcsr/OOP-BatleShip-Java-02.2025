@@ -1,5 +1,3 @@
-package test;
-
 import model.*;
 import enums.*;
 import utils.*;
@@ -10,8 +8,6 @@ public class PlayerInteractionTest {
     public static void main(String[] args) {
         Difficulty difficulty = Difficulty.EASY;
 
-
-
         Board board1 = new Board(difficulty.getBoardSize(), difficulty.getTotalSize(), generateBoatsList(difficulty));
         board1.placeShips();
         Board board2 = new Board(difficulty.getBoardSize(), difficulty.getTotalSize(), generateBoatsList(difficulty));
@@ -20,10 +16,10 @@ public class PlayerInteractionTest {
         HumanPlayer Juan = new HumanPlayer("Juan", board1, difficulty.getAttempts());
         CpuPlayer robotito = new CpuPlayer("Robotito", board2, difficulty.getAttempts());
 
+        robotito.getBoard().printBoard(true);
         Juan.nextShot(robotito.getBoard());
-
-
-
-
+        Juan.nextShot(robotito.getBoard());
+        Juan.nextShot(robotito.getBoard());
+        robotito.getBoard().printBoard(false);
     }
 }
