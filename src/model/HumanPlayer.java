@@ -16,25 +16,24 @@ public class HumanPlayer extends Player {
     @Override
     public void nextShot(Board enemyBoard) {
         System.out.println("Espabila!! "+ name + ", es tu turno !");
-        //Comprueba que me quedan intentos
 
-        if(attempts > 0) {
+        if (attempts > 0) {
             Coordinate coordinatesChosen = getShotCoordinate();
 
-            if(attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
-            else if(attempts == 1) System.out.println("¡Último intento!");
+            if (attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
+            else if (attempts == 1) System.out.println("¡Último intento!");
 
-            if (suggestGotFailShot(coordinatesChosen)) {
-                System.out.printf("%s veo poco éxito en tu decisión.\n", name);
-            } else {
-                enemyBoard.registryShot(getShotCoordinate());
-                attempts--;
-                checkAttempts();
-            }
-        }else {
+//          if (suggestGotFailShot(coordinatesChosen)) {
+//              System.out.printf("%s veo poco éxito en tu decisión.\n", name);
+//          }
+
+            enemyBoard.registryShot(coordinatesChosen);
+            attempts--;
+            checkAttempts();
+
+        } else {
             System.out.println("Has agotado tus intentos, ¡mejor suerte la próxima vez!");
         }
-
     }
 
 
@@ -42,14 +41,12 @@ public class HumanPlayer extends Player {
         int row, column;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Introduce las coordenadas del disparo (fila y columna):");
-        System.out.print("Fila (0-9): ");
-        row = checkRow(scanner);
+        System.out.println("Introduce las coordenadas del disparo (columna y fila):");
+        column = checkColumn(scanner, "Introduce la columna (A-J): ");
 
-        System.out.println("Columna (A-J): ");
-        column = checkColumn(scanner);
+        row = checkRow(scanner, "Introduce la fila (0-9): ");
 
-        return this.board.getCell(row, column).getCoordinate();
+        return this.board.getCell(column, row).getCoordinate();
     }
 
     private boolean suggestGotFailShot(Coordinate coordinate) {
