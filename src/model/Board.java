@@ -71,7 +71,7 @@ public class Board {
                 grid[startRow + i][startColumn].setShip(boat);
 
             }
-            boat.setCoordinate(place.getCoordinate());
+            boat.setCoordinate(new Coordinate(startRow + i, startColumn + i));
         }
     }
 
