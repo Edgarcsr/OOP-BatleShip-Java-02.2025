@@ -26,8 +26,7 @@ public class TestBoard {
 
         Board board = new Board(12, 12, ships);
         board.placeShips();
-        board.printBoard(true); // Mostrar barcosç
-        System.out.println(board.toString());
+        board.printBoard(true);
     }
 }
 

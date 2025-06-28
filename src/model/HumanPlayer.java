@@ -23,9 +23,9 @@ public class HumanPlayer extends Player {
             if (attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
             else if (attempts == 1) System.out.println("¡Último intento!");
 
-//          if (suggestGotFailShot(coordinatesChosen)) {
-//              System.out.printf("%s veo poco éxito en tu decisión.\n", name);
-//          }
+          if (suggestGotFailShot(coordinatesChosen)) {
+              System.out.printf("%s veo poco éxito en tu decisión.\n", name);
+          }
 
             enemyBoard.registryShot(coordinatesChosen);
             attempts--;

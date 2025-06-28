@@ -13,7 +13,7 @@ public class Board {
     private List<Ship> ships;
     private final RandomCellGenerator randomCellGenerator;
     final private List<String> missedShoots = new ArrayList<>();
-    final private List<String> successfullShots = new ArrayList<>();
+    final private List<String> successfullyShots = new ArrayList<>();
     final private List<String> destructiveShoots = new ArrayList<>();
 
     public Board() {
@@ -89,17 +89,17 @@ public class Board {
             for(int i = 0 ; i < size + 2; i++) {
                 if (startCol + i < colLength && grid[startRow][startCol + i].hasShip()) return false;
             }
-            // Comprueba si hay dos posiciones libre hacia la izquierda en horizontal
+            // Comprueba si hay dos posiciones libres hacia la izquierda en horizontal
             for (int i = 1; i <= 2; i++) {
                 if (startCol - i >= 0 && grid[startRow][startCol - i].hasShip()) return false;
             }
-            // Comprueba si hay dos posiciones libre hacia abajo en vertical
+            // Comprueba si hay dos posiciones libres hacia abajo en vertical
             if(startRow < grid.length - 1){
                 for(int i = 1; i <= 2; i++){
                     if (startRow + i < rowLength  && grid[startRow+i][startCol].hasShip()) return false;
                 }
             }
-            // Comprueba si hay dos posiciones libre hacia arriba en vertical
+            // Comprueba si hay dos posiciones libres hacia arriba en vertical
             if(startRow > 0){
                 for(int i = 1; i <= 2; i++){
                     if (startRow - i >= 0  && grid[startRow-i][startCol].hasShip() ) return false;
@@ -111,17 +111,17 @@ public class Board {
             for(int i = 0 ; i < size + 2 ; i++){
                 if(startRow + i < colLength && grid[startRow + i][startCol].hasShip()) return false;
             }
-            // Comprueba si hay dos posiciones libre hacia arriba en vertical
+            // Comprueba si hay dos posiciones libres hacia arriba en vertical
             for(int i = 1; i <= 2; i++){
                 if(startRow - i >= 0 && grid[startRow-i][startCol].hasShip()) return false;
             }
-            // Comprueba si hay dos posiciones libre hacia la derecha en horizontal
+            // Comprueba si hay dos posiciones libres hacia la derecha en horizontal
             if(startCol < colLength-1){
                 for(int i = 1; i <= 2; i++){
                     if(startCol + i < colLength && grid[startRow][startCol+i].hasShip()) return false;
                 }
             }
-            // Comprueba si hay dos posiciones libre hacia la izquierda en horizontal
+            // Comprueba si hay dos posiciones libres hacia la izquierda en horizontal
             if(startCol > 0){
                 for(int i = 1; i <= 2; i++){
                     if(startCol - i >= 0 && grid[startRow][startCol-i].hasShip()) return false;
@@ -159,22 +159,22 @@ public class Board {
 
         cell.processHit(coordinate);
 
-        String unespectedResult = "No se ha procesado el disparo correctamente";
+        String unexpectedResult = "No se ha procesado el disparo correctamente";
         switch (cell.getCellStatus()) {
             case MISS:
                 missedShoots.add("fallado en: " + coordinate.getRow() + "," + coordinate.getColumn());
                 getResultShoot(missedShoots.getLast());
                 break;
             case HIT:
-                successfullShots.add("acertado en: " + coordinate.getRow() + "," + coordinate.getColumn());
-                getResultShoot(successfullShots.getLast());
+                successfullyShots.add("acertado en: " + coordinate.getRow() + "," + coordinate.getColumn());
+                getResultShoot(successfullyShots.getLast());
                 if (cell.getShip().isSunk()) {
                     destructiveShoots.add("hundido un: " + cell.getShip().getType());
                     getResultShoot(destructiveShoots.getLast());
                 }
                 break;
             default:
-                System.out.println(unespectedResult + " Reinicia el juego ");
+                System.out.println(unexpectedResult + " Reinicia el juego ");
         }
     }
 
@@ -183,13 +183,13 @@ public class Board {
     }
 
     public void printPerformanceRank() {
-        int totalShoots = missedShoots.size() + successfullShots.size();
+        int totalShoots = missedShoots.size() + successfullyShots.size();
         if (totalShoots == 0) {
             System.out.println("No se han realizado disparos.");
             return;
         }
         double failurePercentage = (double) missedShoots.size() / totalShoots * 100;
-        double correctPercentage = (double) successfullShots.size() / totalShoots * 100;
+        double correctPercentage = (double) successfullyShots.size() / totalShoots * 100;
         double destructivePercentage = (double) destructiveShoots.size() / totalShoots * 100;
 
         String rango;

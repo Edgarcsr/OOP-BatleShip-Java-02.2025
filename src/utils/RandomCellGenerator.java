@@ -5,10 +5,8 @@ import model.Cell;
 
 
 public class RandomCellGenerator {
-    private int  randomRow;
-    private int  randomColumn;
-    private int max;
-    private Board board;
+    private final int max;
+    private final Board board;
 
 
     public RandomCellGenerator(Board board) {
@@ -17,8 +15,8 @@ public class RandomCellGenerator {
     }
 
     public Cell getCell() {
-        randomRow = (int) (Math.random() * max);
-        randomColumn = (int) (Math.random() * max);
+        int randomRow = (int) (Math.random() * max);
+        int randomColumn = (int) (Math.random() * max);
 
         return board.getCell(randomRow, randomColumn);
     }
