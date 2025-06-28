@@ -12,13 +12,12 @@ public class Board {
     private final Cell[][] grid;
     private List<Ship> ships;
     private final RandomCellGenerator randomCellGenerator;
-    private List<String> missedShoots = new ArrayList<>();
-    private List<String> successfullShots = new ArrayList<>();
-    private List<String> destructiveShoots = new ArrayList<>();
-    private String unespectedResult = "No se ha procesado el disparo correctamente";
-    private int defaultSizeOfBoard = Difficulty.EASY.getBoardSize();
+    final private List<String> missedShoots = new ArrayList<>();
+    final private List<String> successfullShots = new ArrayList<>();
+    final private List<String> destructiveShoots = new ArrayList<>();
 
     public Board() {
+        int defaultSizeOfBoard = Difficulty.EASY.getBoardSize();
         grid = new Cell[defaultSizeOfBoard][defaultSizeOfBoard];
         for ( int i = 0; i < grid.length; i++ ) {
             for( int j = 0; j < grid[i].length; j++ ) {
@@ -160,6 +159,7 @@ public class Board {
 
         cell.processHit(coordinate);
 
+        String unespectedResult = "No se ha procesado el disparo correctamente";
         switch (cell.getCellStatus()) {
             case MISS:
                 missedShoots.add("fallado en: " + coordinate.getRow() + "," + coordinate.getColumn());

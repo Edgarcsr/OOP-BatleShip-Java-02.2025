@@ -1,6 +1,8 @@
-import model.*;
-import enums.*;
-import utils.*;
+import enums.Difficulty;
+import model.Board;
+import model.CpuPlayer;
+import model.HumanPlayer;
+
 import static utils.BoatsGenerator.generateBoatsList;
 
 

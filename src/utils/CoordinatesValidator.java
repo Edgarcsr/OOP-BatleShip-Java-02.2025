@@ -1,8 +1,5 @@
 package utils;
 
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CoordinatesValidator {
@@ -39,7 +36,7 @@ public class CoordinatesValidator {
             System.out.println("Error: No puedes dejar la coordenada vacía.");
             System.out.println();
             return checkColumn(scanner, "Introduce la columna (A-J): ");
-        } else if (temporaryInput.matches("\\d+|[!\\|·#$~%&/()=?¿'{¨}.,:;_]")) {
+        } else if (temporaryInput.matches("\\d+|[!|·#$~%&/()=?¿'{¨}.,:;_]")) {
             System.out.println("Error: Numeros o carácteres especiales no son válidos.");
             System.out.println();
             return checkColumn(scanner, "Introduce la columna (A-J): ");
