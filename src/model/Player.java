@@ -2,10 +2,11 @@ package model;
 
 public abstract class Player {
     protected String name;
-    protected final Board board;
+    protected Board board;
     protected int attempts;
     private boolean spentAllAttempts = false;
     protected PlayerListener listener;
+    private boolean winner = false;
 
     public Player(String name, Board board, int attempts) {
         this.name = name;
@@ -21,8 +22,12 @@ public abstract class Player {
         return board;
     }
 
-    public int getAttempts() {
-        return attempts;
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public boolean isSpentAllAttempts() {
+        return spentAllAttempts;
     }
 
     public void setPlayerListener(PlayerListener listener) {
@@ -37,6 +42,12 @@ public abstract class Player {
             }
         }
     }
+    public void setWinner(boolean winner) {
+        this.winner = winner;
+    }
 
+    public boolean isWinner() {
+        return  winner;
+    }
     public abstract void nextShot(Board enemyBoard);
 }

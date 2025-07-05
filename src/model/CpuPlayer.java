@@ -17,9 +17,9 @@ public class CpuPlayer extends Player {
     public void nextShot(Board enemyBoard) {
 
         if (attempts > 0) {
-           Coordinate temporaryShot = getShotCoordinate(randomCellGenerator.getCell());
+            Coordinate temporaryShot = getShotCoordinate(randomCellGenerator.getCell());
 
-           while (temporaryShot.equals(lastShot)) {
+            while (temporaryShot.equals(lastShot)) {
                 temporaryShot = getShotCoordinate(randomCellGenerator.getCell());
             }
 

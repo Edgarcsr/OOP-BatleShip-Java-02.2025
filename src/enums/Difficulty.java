@@ -21,7 +21,7 @@ el número de barcos de cada tipo y el número de intentos.*/
 public enum Difficulty {
     EASY(5, 3, 1, 1, 50, 10),
     MEDIUM(2, 1, 1, 1, 30, 10),
-    HARD(1, 1, 0, 0, 10, 10);
+    HARD(1, 0, 0, 0, 10, 10);
 
     final int lanchas,
         buques,

@@ -4,8 +4,8 @@ package model;
 
 import enums.CellStatus;
 import java.util.Scanner;
-import static utils.CoordinatesValidator.checkColumn;
-import static utils.CoordinatesValidator.checkRow;
+
+import static utils.CoordinatesValidator.*;
 
 public class HumanPlayer extends Player {
 
@@ -23,7 +23,7 @@ public class HumanPlayer extends Player {
             if (attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
             else if (attempts == 1) System.out.println("¡Último intento!");
 
-          if (suggestGotFailShot(coordinatesChosen)) {
+          if (!suggestGotFailShot(coordinatesChosen)) {
               System.out.printf("%s veo poco éxito en tu decisión.\n", name);
           }
 
@@ -41,12 +41,12 @@ public class HumanPlayer extends Player {
         int row, column;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Introduce las coordenadas del disparo (columna y fila):");
-        column = checkColumn(scanner, "Introduce la columna (A-J): ");
+        System.out.println("Introduce las coordenadas del disparo (fila y columna):");
+        row = checkLetter(scanner, "Introduce la fila (A-J): ");
+        column = checkInt(scanner, "Introduce la columna (0-9): ");
 
-        row = checkRow(scanner, "Introduce la fila (0-9): ");
 
-        return this.board.getCell(column, row).getCoordinate();
+        return this.board.getCell(row, column).getCoordinate();
     }
 
     private boolean suggestGotFailShot(Coordinate coordinate) {
@@ -54,5 +54,4 @@ public class HumanPlayer extends Player {
 
         return chosenCell.getCellStatus() == CellStatus.EMPTY || chosenCell.getCellStatus() == CellStatus.MISS || chosenCell.getCellStatus() == CellStatus.HIT;
     }
-
 }
