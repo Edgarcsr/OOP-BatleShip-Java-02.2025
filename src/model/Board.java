@@ -6,6 +6,7 @@ import enums.Orientation;
 import utils.RandomCellGenerator;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Board {
@@ -14,22 +15,23 @@ public class Board {
     private final RandomCellGenerator randomCellGenerator;
     final private List<String> missedShoots = new ArrayList<>();
     final private List<String> successfullyShots = new ArrayList<>();
-    final private List<String> destructiveShoots = new ArrayList<>();
+    final private LinkedHashMap<String, Boolean> destructiveShoots = new LinkedHashMap<>();
 
-    public Board() {
+    public Board(List<Ship> ships) {
         int defaultSizeOfBoard = Difficulty.EASY.getBoardSize();
-        grid = new Cell[defaultSizeOfBoard][defaultSizeOfBoard];
+        this.grid = new Cell[defaultSizeOfBoard][defaultSizeOfBoard];
         for ( int i = 0; i < grid.length; i++ ) {
             for( int j = 0; j < grid[i].length; j++ ) {
                 grid[i][j] = new Cell( new Coordinate(i, j) );
             }
         }
-        randomCellGenerator = new RandomCellGenerator(this);
+        this.ships = ships;
+        this.randomCellGenerator = new RandomCellGenerator(this);
     }
 
     public Board( int row, int column, List<Ship> ships ) {
 
-        grid = new Cell[row][column];
+        this.grid = new Cell[row][column];
 
         for ( int i = 0; i < grid.length; i++ ) {
             for( int j = 0; j < grid[i].length; j++ ) {
@@ -37,7 +39,7 @@ public class Board {
             }
         }
         this.ships = ships;
-        randomCellGenerator = new RandomCellGenerator(this);
+        this.randomCellGenerator = new RandomCellGenerator(this);
     }
 
     public void placeShips() {
@@ -152,25 +154,28 @@ public class Board {
 
     public void registryShot( Coordinate coordinate ) {
         Cell cell = grid[coordinate.getRow()][coordinate.getColumn()];
+
         if( cell.getCellStatus() == CellStatus.MISS || cell.getCellStatus() == CellStatus.HIT ) {
-            getResultShoot("Ya has disparado a esta celda. No desperdicies disparos");
+            getResultShoot("ha fallado otra vez! Ya habías disparado a esta celda. No desperdicies disparos!!");
             return;
         }
 
         cell.processHit(coordinate);
 
         String unexpectedResult = "No se ha procesado el disparo correctamente";
+
         switch (cell.getCellStatus()) {
+            //String.valueOf(row + 65);
             case MISS:
-                missedShoots.add("fallado en: " + coordinate.getRow() + "," + coordinate.getColumn());
+                missedShoots.add("fallado en: ".concat((char) (coordinate.getRow() + 65) + "," + coordinate.getColumn()));
                 getResultShoot(missedShoots.getLast());
                 break;
             case HIT:
-                successfullyShots.add("acertado en: " + coordinate.getRow() + "," + coordinate.getColumn());
+                successfullyShots.add("acertado en: " + ((char) (coordinate.getRow() + 65) + "," + coordinate.getColumn()));
                 getResultShoot(successfullyShots.getLast());
                 if (cell.getShip().isSunk()) {
-                    destructiveShoots.add("hundido un: " + cell.getShip().getType());
-                    getResultShoot(destructiveShoots.getLast());
+                    destructiveShoots.put("hundido un: " + cell.getShip().getType(), isAllShipsSunk());
+                    getResultShoot(destructiveShoots.keySet().toArray()[destructiveShoots.size() -1 ].toString());
                 }
                 break;
             default:
@@ -180,6 +185,11 @@ public class Board {
 
     private void getResultShoot(String result) {
         System.out.println("Tu disparo ha " + result);
+    }
+
+    public boolean getLastDestructiveShoot() {
+        System.out.printf("El último disparo destructivo fue: %s%n", destructiveShoots);
+        return destructiveShoots.values().toArray()[destructiveShoots.size() - 1].equals(true);
     }
 
     public void printPerformanceRank() {
@@ -244,5 +254,8 @@ public class Board {
             }
         }
         return true;
+    }
+    public LinkedHashMap<String,Boolean> getDestructiveShoots() {
+        return this.destructiveShoots;
     }
 }

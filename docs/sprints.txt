@@ -21,15 +21,13 @@ Cada jugador tiene su propio tablero y puede realizar disparos sobre el tablero 
 Resultado esperado:
 Dos tipos de jugadores funcionales, capaces de interactuar con el tablero y realizar disparos válidos.
 
-TODO: corregir errores en el test de Players
+DONE
 
-<hr></hr>
 Sprint 4: Lógica del juego
 Objetivo:
 Implementar la clase Game para gestionar el flujo completo de la partida.
 
 Implementaciones:
-
 
 Clase Game:
 Atributos: referencias a los dos jugadores (Player), control de turnos, estado de la partida.
@@ -48,13 +46,13 @@ Llama a la clase Game para iniciar la partida.
 Resultado esperado:
 Partida jugable de principio a fin, con turnos y condiciones de victoria/derrota.
 
-<hr></hr>
+DONE
+
 Sprint 5: Interfaz de usuario básica
 Objetivo:
 Mejorar la interacción con el usuario a través de la consola.
 
 Implementaciones:
-
 
 Visualización de tableros:
 Mostrar el tablero propio y el del oponente (ocultando barcos no descubiertos).
@@ -68,7 +66,6 @@ Permitir reiniciar o salir tras finalizar la partida.
 Resultado esperado:
 Interfaz de consola clara y funcional, con mensajes útiles y validaciones robustas.
 
-<hr></hr>
 Sprint 6: Jugador CPU
 Objetivo:
 Implementar la lógica de un jugador CPU y su integración en el juego.

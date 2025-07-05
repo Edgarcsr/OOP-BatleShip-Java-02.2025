@@ -18,10 +18,15 @@ public class PlayerInteractionTest {
         HumanPlayer Juan = new HumanPlayer("Juan", board1, difficulty.getAttempts());
         CpuPlayer robotito = new CpuPlayer("Robotito", board2, difficulty.getAttempts());
 
+//        robotito.getBoard().printBoard(true);
+//        Juan.nextShot(robotito.getBoard());
+//        Juan.nextShot(robotito.getBoard());
+//        Juan.nextShot(robotito.getBoard());
+//        robotito.getBoard().printBoard(false);
+
+        robotito.nextShot(Juan.getBoard());
+        Juan.getBoard().printBoard(true);
+        Juan.nextShot(robotito.getBoard());
         robotito.getBoard().printBoard(true);
-        Juan.nextShot(robotito.getBoard());
-        Juan.nextShot(robotito.getBoard());
-        Juan.nextShot(robotito.getBoard());
-        robotito.getBoard().printBoard(false);
     }
 }
