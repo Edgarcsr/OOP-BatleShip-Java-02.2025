@@ -255,7 +255,20 @@ public class Board {
         }
         return true;
     }
+
     public LinkedHashMap<String,Boolean> getDestructiveShoots() {
         return this.destructiveShoots;
+    }
+
+    public void resetBoard() {
+        for (Cell[] row : grid) {
+            for (Cell cell : row) {
+                cell.reset();
+            }
+        }
+        ships.forEach(Ship::reset);
+        missedShoots.clear();
+        successfullyShots.clear();
+        destructiveShoots.clear();
     }
 }
