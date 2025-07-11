@@ -67,4 +67,9 @@ public class Cell {
             return "-";
         }
     }
+
+    protected void reset() {
+        this.ship = null;
+        this.status = CellStatus.EMPTY;
+    }
 }
