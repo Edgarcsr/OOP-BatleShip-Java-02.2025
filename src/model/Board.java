@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Board {
     private final Cell[][] grid;
-    private List<Ship> ships;
+    private final List<Ship> ships;
     private final RandomCellGenerator randomCellGenerator;
     final private List<String> missedShoots = new ArrayList<>();
     final private List<String> successfullyShots = new ArrayList<>();
