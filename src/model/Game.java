@@ -1,46 +1,36 @@
 package model;
 
 import enums.Difficulty;
+import static utils.BoatsGenerator.generateBoatsList;
 
 public class Game {
     private final Player playerOne;
     private final Player playerTwo;
-    private Difficulty difficulty;
+    private final Difficulty difficulty;
     private Player winner;
     private Player loser;
 
-    public Game (Difficulty difficulty, HumanPlayer playerHuman, CpuPlayer playerComputer) {
+    public Game (Difficulty difficulty, Player playerHuman, Player playerComputer) {
         this.difficulty = difficulty;
         this.playerOne = playerHuman;
         this.playerTwo = playerComputer;
     }
 
-    public Game (Difficulty difficulty, HumanPlayer playerOne, HumanPlayer playerTwo) {
-        this.difficulty = difficulty;
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-    }
-
-    public Game (Difficulty difficulty, CpuPlayer playerOne, CpuPlayer playerTwo) {
-        this.difficulty = difficulty;
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-    }
-
     public void setupGame() {
-        playerOne.setWinner(false);
-        playerTwo.setWinner(false);
-        Board boardPlayerOne = playerOne.getBoard();
+        Board boardPlayerOne = new Board(difficulty.getBoardSize(), difficulty.getBoardSize(), generateBoatsList(difficulty));
         boardPlayerOne.placeShips();
         playerOne.setBoard(boardPlayerOne);
-        Board boardPlayerTwo = playerTwo.getBoard();
+        Board boardPlayerTwo = new Board(difficulty.getBoardSize(), difficulty.getBoardSize(), generateBoatsList(difficulty));
         boardPlayerTwo.placeShips();
         playerTwo.setBoard(boardPlayerTwo);
+        playerOne.setWinner(false);
+        playerTwo.setWinner(false);
     }
 
     public void play() {
         while (!onDeclaredWinner()) {
             turn(playerOne, playerTwo);
+            if (onDeclaredWinner()) break;
             turn(playerTwo, playerOne);
         }
     }
@@ -63,9 +53,9 @@ public class Game {
             } else if (playerOne.isSpentAllAttempts()) {
                 System.out.println("El jugador " + playerOne.getName() + " ha agotado sus intentos.");
                 setWin(playerTwo);
-                System.out.println("He asignado un ganador y agotó sus intentos" + winner.getName());
+                System.out.println("He asignado un ganador y no agotó sus intentos " + winner.getName());
                 setLoser( playerOne.isWinner() ? playerTwo : playerOne );
-                System.out.println("He asignado un perdedor" + loser.getName());
+                System.out.println("He asignado un perdedor " + loser.getName());
             }
         }
     }
@@ -75,33 +65,31 @@ public class Game {
         player.getBoard().printBoard(true);
     }
 
-    public boolean onDeclaredWinner() {
-       return winner != null;
-    }
-
     private void setWin(Player winner) {
-        winner.setWinner(true);
         this.winner = winner;
+        winner.setWinner(true);
     }
 
     private void setLoser( Player loser ) {
         this.loser = loser;
     }
 
-//    public void setDifficulty() {
-//        Scanner scanner = new Scanner(System.in);
-//        int option = 0;
-//
-//        System.out.print("Seleccione la dificultad del juego:\n" +
-//                "1. Fácil\n" +
-//                "2. Medio\n" +
-//                "3. Difícil\n");
-//        option = scanner.nextInt();
-//
-//        switch (option) {
-//            case 1 -> this.difficulty = Difficulty.EASY;
-//            case 2 -> this.difficulty = Difficulty.MEDIUM;
-//            case 3 -> this.difficulty =  Difficulty.HARD;
-//        };
-//    }
+    public boolean onDeclaredWinner() {
+        return winner != null;
+    }
+
+    public void resetGame() {
+        this.winner = null;
+        this.loser = null;
+        playerOne.getBoard().resetBoard();
+        playerTwo.getBoard().resetBoard();
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getLoser() {
+        return loser;
+    }
 }
