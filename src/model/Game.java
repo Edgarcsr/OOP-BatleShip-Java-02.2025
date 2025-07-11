@@ -43,19 +43,15 @@ public class Game {
                 playerOne.nextShot(playerTwo.getBoard());
                 if (!playerTwo.getBoard().getDestructiveShoots().isEmpty()) {
                     if (playerTwo.getBoard().getLastDestructiveShoot()) {
-                        System.out.println(playerOne.getName()+ " su ultimo disparo destruyó todos los barcos" + playerOne.getBoard().getDestructiveShoots().toString());
                         setWin(playerOne);
-                        System.out.println("He asignado un ganador y no agotó sus intentos" + winner.getName());
+                        System.out.println("He asignado un ganador y no agotó sus intentos");
                         setLoser( playerOne.isWinner() ? playerTwo : playerOne );
-                        System.out.println("He asignado un perdedor" + loser.getName());
                     }
                 }
             } else if (playerOne.isSpentAllAttempts()) {
                 System.out.println("El jugador " + playerOne.getName() + " ha agotado sus intentos.");
                 setWin(playerTwo);
-                System.out.println("He asignado un ganador y no agotó sus intentos " + winner.getName());
                 setLoser( playerOne.isWinner() ? playerTwo : playerOne );
-                System.out.println("He asignado un perdedor " + loser.getName());
             }
         }
     }
