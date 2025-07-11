@@ -4,23 +4,17 @@ import enums.ShipType;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class Ship {
     private final ShipType type;
     private final Orientation orientation;
     private final Set<Coordinate> coordinates;
     private final Set<Coordinate> hitsCoordinates;
 
-
     public Ship(ShipType type, Orientation orientation) {
         this.type = type;
         this.orientation = orientation;
         this.coordinates = new HashSet<>();
         this.hitsCoordinates = new HashSet<>();
-    }
-
-    public Set<Coordinate> getCoordinates() {
-        return coordinates;
     }
 
     public void setCoordinate(Coordinate coordinate) {
@@ -35,10 +29,15 @@ public class Ship {
         return coordinates.size() == hitsCoordinates.size();
     }
 
-
     public ShipType getType() {
         return type;
     }
+
     public Orientation getOrientation() { return orientation;}
+
+    public void reset() {
+        coordinates.clear();
+        hitsCoordinates.clear();
+    }
 }
 

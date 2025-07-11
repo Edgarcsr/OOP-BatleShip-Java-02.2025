@@ -14,7 +14,7 @@ public class BoatsGenerator {
     public static List<Ship> generateBoatsList(Difficulty difficulty ) {
         List<ShipType> kindsOfBoats = new ArrayList<>(Arrays.asList(ShipType.values()));
 
-        List<Ship> boats = new ArrayList<>(difficulty.getTotalSize());
+        List<Ship> boats = new ArrayList<>(difficulty.getTotalNumberOfBoats());
 
         kindsOfBoats.forEach(boat -> {
            for( int i = 0; i < difficulty.getQuantityOfBoats(boat); i++ ) {

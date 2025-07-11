@@ -30,10 +30,6 @@ public abstract class Player {
         return spentAllAttempts;
     }
 
-    public void setPlayerListener(PlayerListener listener) {
-        this.listener = listener;
-    }
-
     protected void checkAttempts() {
         if (attempts <= 0 && !spentAllAttempts) {
             spentAllAttempts = true;
@@ -49,5 +45,6 @@ public abstract class Player {
     public boolean isWinner() {
         return  winner;
     }
+
     public abstract void nextShot(Board enemyBoard);
 }
