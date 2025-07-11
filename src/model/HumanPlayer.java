@@ -1,7 +1,5 @@
 package model;
 
-
-
 import enums.CellStatus;
 import java.util.Scanner;
 
@@ -30,7 +28,6 @@ public class HumanPlayer extends Player {
             enemyBoard.registryShot(coordinatesChosen);
             attempts--;
             checkAttempts();
-
         } else {
             System.out.println("Has agotado tus intentos, ¡mejor suerte la próxima vez!");
         }
@@ -45,13 +42,11 @@ public class HumanPlayer extends Player {
         row = checkLetter(scanner, "Introduce la fila (A-J): ");
         column = checkInt(scanner, "Introduce la columna (0-9): ");
 
-
         return this.board.getCell(row, column).getCoordinate();
     }
 
     private boolean suggestGotFailShot(Coordinate coordinate) {
         Cell chosenCell = this.board.getCell(coordinate.getRow(), coordinate.getColumn());
-
         return chosenCell.getCellStatus() == CellStatus.EMPTY || chosenCell.getCellStatus() == CellStatus.MISS || chosenCell.getCellStatus() == CellStatus.HIT;
     }
 }
