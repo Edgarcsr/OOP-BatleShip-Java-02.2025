@@ -14,11 +14,11 @@ public class BoatsGenerator {
     public static List<Ship> generateBoatsList(Difficulty difficulty ) {
         List<ShipType> kindsOfBoats = new ArrayList<>(Arrays.asList(ShipType.values()));
 
-        List<Ship> boats = new ArrayList<>(difficulty.getTotalNumberOfBoats());
+        List<Ship> boats = new ArrayList<>(difficulty.getTotalQuantityBoats());
 
         kindsOfBoats.forEach(boat -> {
-           for( int i = 0; i < difficulty.getQuantityOfBoats(boat); i++ ) {
-                boats.add(new Ship(boat, (boat == ShipType.PORTAVIONES ? Orientation.VERTICAL : Orientation.HORIZONTAL)));
+           for(int i = 0; i < difficulty.getQuantityKindOfBoat(boat); i++ ) {
+                boats.add(new Ship(boat, (boat == ShipType.AIRCRAFTCARRIER ? Orientation.VERTICAL : Orientation.HORIZONTAL)));
            }
         });
 
