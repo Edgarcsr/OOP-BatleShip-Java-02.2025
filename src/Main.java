@@ -1,16 +1,23 @@
-import model.Game;
-import model.Menu;
+import game.Game;
+import game.Menu;
 
 public class Main {
     public static void main(String[] args) {
         Menu menu = Menu.getInstance();
-        Game game;
+        Game game = null;
 
         while (!menu.onEndGame()) {
-            System.out.println("Welcome to the Battleship Game!");
-            menu.showMenu();
-            game = new Game( menu.getDifficultySelected(), menu.getPlayerOne(), menu.getPlayerTwo());
-            game.setupGame();
+            if (menu.onNewGame()) {
+                menu.showMenu();
+                game = new Game(menu.getDifficultySelected(), menu.getPlayerOne(), menu.getPlayerTwo());
+                game.setupGame();
+            } else if (menu.onResetGame()) {
+                assert game != null;
+                System.out.println("Reiniciando el juego...");
+                game.resetGame();
+            }
+            assert game != null;
+            System.out.println("Comienza el juego!");
             game.play();
             if (game.onDeclaredWinner()) {
                 System.out.println("El ganador es: " + game.getWinner().getName());
