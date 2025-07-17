@@ -33,6 +33,7 @@ public abstract class Player {
     protected void checkAttempts() {
         if (attempts <= 0 && !spentAllAttempts) {
             spentAllAttempts = true;
+
             if (listener != null) {
                 listener.onNoAttemptsLeft(this);
             }
@@ -47,4 +48,10 @@ public abstract class Player {
     }
 
     public abstract void nextShot(Board enemyBoard);
+
+    public void reset(int attempts) {
+        this.winner = false;
+        this.attempts = attempts;
+        this.spentAllAttempts = false;
+    }
 }
