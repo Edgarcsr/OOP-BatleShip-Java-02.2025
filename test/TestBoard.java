@@ -12,17 +12,17 @@ public class TestBoard {
         List<Ship> ships = new ArrayList<>();
         // 5 lanchas
         for (int i = 0; i < 5; i++) {
-            ships.add(new Ship(ShipType.LANCHA, Orientation.HORIZONTAL));
+            ships.add(new Ship(ShipType.BOAT, Orientation.HORIZONTAL));
         }
         // 3 buques
         for (int i = 0; i < 3; i++) {
-            ships.add(new Ship(ShipType.BUQUE, Orientation.HORIZONTAL));
+            ships.add(new Ship(ShipType.SHIP, Orientation.HORIZONTAL));
         }
         // 1 acorazado
-        ships.add(new Ship(ShipType.ACORAZADO, Orientation.HORIZONTAL));
+        ships.add(new Ship(ShipType.BATTLESHIP, Orientation.HORIZONTAL));
         // 1 portaaviones
-        ships.add(new Ship(ShipType.PORTAVIONES, Orientation.VERTICAL));
-        ships.add(new Ship(ShipType.PORTAVIONES, Orientation.VERTICAL));
+        ships.add(new Ship(ShipType.AIRCRAFTCARRIER, Orientation.VERTICAL));
+        ships.add(new Ship(ShipType.AIRCRAFTCARRIER, Orientation.VERTICAL));
 
         Board board = new Board(12, 12, ships);
         board.placeShips();
