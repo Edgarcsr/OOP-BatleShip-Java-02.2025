@@ -29,16 +29,16 @@ public enum Difficulty {
         return attempts;
     }
 
-    public int getQuantityOfBoats( ShipType shipType) {
+    public int getQuantityKindOfBoat(ShipType shipType) {
         return switch (shipType) {
-            case LANCHA -> lanchas;
-            case BUQUE -> buques;
-            case ACORAZADO -> acorazados;
-            case PORTAVIONES -> portaaviones;
+            case BOAT -> lanchas;
+            case SHIP -> buques;
+            case BATTLESHIP -> acorazados;
+            case AIRCRAFTCARRIER -> portaaviones;
         };
     }
 
-    public int getTotalNumberOfBoats() {
+    public int getTotalQuantityBoats() {
         return lanchas + buques + acorazados + portaaviones;
     }
 

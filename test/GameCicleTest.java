@@ -1,7 +1,7 @@
 import enums.Difficulty;
 import model.Board;
 import model.CpuPlayer;
-import model.Game;
+import game.Game;
 import model.HumanPlayer;
 
 import static utils.BoatsGenerator.generateBoatsList;

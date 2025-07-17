@@ -36,7 +36,6 @@ public class Ship {
     public Orientation getOrientation() { return orientation;}
 
     public void reset() {
-        coordinates.clear();
         hitsCoordinates.clear();
     }
 }
