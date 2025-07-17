@@ -1,6 +1,9 @@
-package model;
+package game;
 
 import enums.Difficulty;
+import model.Board;
+import model.Player;
+
 import static utils.BoatsGenerator.generateBoatsList;
 
 public class Game {
@@ -37,21 +40,21 @@ public class Game {
 
     private void turn(Player playerOne, Player playerTwo) {
         if (!playerOne.isWinner() && !playerTwo.isWinner()) {
-            showBoards(playerTwo);
+            showBoards(playerOne);
 
             if (!playerOne.isSpentAllAttempts()) {
                 playerOne.nextShot(playerTwo.getBoard());
                 if (!playerTwo.getBoard().getDestructiveShoots().isEmpty()) {
                     if (playerTwo.getBoard().getLastDestructiveShoot()) {
-                        setWin(playerOne);
+                        declareWinner(playerOne);
                         System.out.println("He asignado un ganador y no agotó sus intentos");
-                        setLoser( playerOne.isWinner() ? playerTwo : playerOne );
+                        declareLosser( playerOne.isWinner() ? playerTwo : playerOne );
                     }
                 }
             } else if (playerOne.isSpentAllAttempts()) {
-                System.out.println("El jugador " + playerOne.getName() + " ha agotado sus intentos.");
-                setWin(playerTwo);
-                setLoser( playerOne.isWinner() ? playerTwo : playerOne );
+                System.out.println("El jugador " + playerOne.getName() + " agotó sus intentos.");
+                declareWinner(playerTwo);
+                declareLosser( playerOne.isWinner() ? playerTwo : playerOne );
             }
         }
     }
@@ -61,12 +64,12 @@ public class Game {
         player.getBoard().printBoard(true);
     }
 
-    private void setWin(Player winner) {
+    private void declareWinner(Player winner) {
         this.winner = winner;
         winner.setWinner(true);
     }
 
-    private void setLoser( Player loser ) {
+    private void declareLosser(Player loser ) {
         this.loser = loser;
     }
 
@@ -79,6 +82,8 @@ public class Game {
         this.loser = null;
         playerOne.getBoard().resetBoard();
         playerTwo.getBoard().resetBoard();
+        playerOne.reset(difficulty.getAttempts());
+        playerTwo.reset(difficulty.getAttempts());
     }
 
     public Player getWinner() {
