@@ -1,7 +1,12 @@
-package model;
+package game;
 
 import enums.Difficulty;
 import enums.GameMode;
+import model.Board;
+import model.CpuPlayer;
+import model.HumanPlayer;
+import model.Player;
+
 import java.util.Scanner;
 import static utils.BoatsGenerator.generateBoatsList;
 import static utils.DifficultValidator.intSelectOptionsGameValidator;
@@ -16,6 +21,8 @@ public class Menu {
     private Player playerOne;
     private Player playerTwo;
     private Boolean endGame = false;
+    private Boolean resetGame = false;
+    private Boolean newGame = true;
 
     private Menu() {
     }
@@ -80,7 +87,7 @@ public class Menu {
     private void showDifficultySelection(Difficulty difficulty) {
         System.out.println("####################################################");
         System.out.printf("  Has seleccionado la dificultad %s \n", difficulty.getDifficulty());
-        System.out.printf("  Tienes %d disparos para hundir %d barcos de guerra \n", difficulty.getAttempts(), difficulty.getTotalNumberOfBoats());
+        System.out.printf("  Tienes %d disparos para hundir %d barcos de guerra \n", difficulty.getAttempts(), difficulty.getTotalQuantityBoats());
         System.out.println("####################################################");
         System.out.println();
     }
@@ -94,9 +101,9 @@ public class Menu {
         System.out.println("|=========================================|");
         System.out.printf("|    %S             Número        |\n", (caseSelection.equals("difficulty") ? "Dificultad" : "Modo de Juego"));
         System.out.println("|    ----------             ------        |");
-        System.out.printf("|    %s%s1           |\n", (caseSelection.equals("difficulty") ? "Cobarde" : "Jugador vs Jugador"), caseSelection.equals("difficulty") ? spacerLineMenu("Cobarde") : spacerLineMenu("Jugador vs Jugador"));
-        System.out.printf("|    %s%s2           |\n", (caseSelection.equals("difficulty") ? "Aventurero" : "Jugador vs CPU"), caseSelection.equals("difficulty") ? spacerLineMenu("Aventurero") : spacerLineMenu("Jugador vs CPU"));
-        System.out.printf("|    %s%s3           |\n", (caseSelection.equals("difficulty") ? "Destructor" : "CPU vs CPU"), caseSelection.equals("difficulty") ? spacerLineMenu("Destructor") : spacerLineMenu("CPU vs CPU"));
+        System.out.printf("|    %s%s1           |\n", (caseSelection.equals("difficulty") ? "Cobarde" : "Jugador vs Jugador"), caseSelection.equals("difficulty") ? getSpaces("Cobarde") : getSpaces("Jugador vs Jugador"));
+        System.out.printf("|    %s%s2           |\n", (caseSelection.equals("difficulty") ? "Aventurero" : "Jugador vs CPU"), caseSelection.equals("difficulty") ? getSpaces("Aventurero") : getSpaces("Jugador vs CPU"));
+        System.out.printf("|    %s%s3           |\n", (caseSelection.equals("difficulty") ? "Destructor" : "CPU vs CPU"), caseSelection.equals("difficulty") ? getSpaces("Destructor") : getSpaces("CPU vs CPU"));
         System.out.println("|=========================================|");
         System.out.println();
         System.out.printf("Introduce el numero correspondiente %s de tu partida:", (caseSelection.equals("difficulty")) ? "a la Dificultad" : "al modo de juego");
@@ -120,7 +127,7 @@ public class Menu {
         scanner.nextLine();
     }
 
-    private String spacerLineMenu(String word) {
+    private String getSpaces(String word) {
         StringBuilder spacer = new StringBuilder();
         int length = word.length();
         spacer.append(" ".repeat(Math.max(0, 25 - length)));
@@ -197,6 +204,8 @@ public class Menu {
         this.playerOne = null;
         this.playerTwo = null;
         this.endGame = false;
+        this.resetGame = false;
+        this.newGame = true;
     }
 
     public Boolean onEndGame() {
@@ -211,13 +220,34 @@ public class Menu {
             exitMessage();
             return true;
         } else if (response.equals("N")) {
-            clearMenuData();
-            System.out.println("¡Perfecto! Vamos a jugar de nuevo.");
+            System.out.println("¿Quieres reinicia la partida? S/N");
+            String restartResponse = scanner.nextLine().trim().toUpperCase();
+            if (restartResponse.equals("S")) {
+                System.out.println("¡Perfecto! Vamos a reiniciar el juego.");
+                resetGame = true;
+                newGame = false;
+            } else if (restartResponse.equals("N")) {
+                clearMenuData();
+                System.out.println("¡Perfecto! Vamos a empezar una nueva partida.");
+            } else {
+                System.out.println("Respuesta no válida. Por favor, introduce 'S' o 'N'.");
+                return turnOffGame();
+            }
             return false;
         } else {
             System.out.println("Respuesta no válida. Por favor, introduce 'S' o 'N'.");
             return turnOffGame();
         }
+
+
+    }
+
+    public boolean onNewGame() {
+        return newGame;
+    }
+
+    public boolean onResetGame() {
+        return resetGame;
     }
 
     public void exitMessage() {
