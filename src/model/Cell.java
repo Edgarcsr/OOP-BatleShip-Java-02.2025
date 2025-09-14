@@ -50,13 +50,13 @@ public class Cell {
         if (status == CellStatus.HIT) {
             return "X";
         } else if (status == CellStatus.MISS) {
-            return "A";
+            return "O";
         } else if (reveal && status == CellStatus.SHIP) {
             return switch(ship.getType()) {
-                case ShipType.BOAT -> "L";
-                case ShipType.SHIP -> "B";
-                case ShipType.BATTLESHIP -> "Z";
-                case ShipType.AIRCRAFTCARRIER -> "P";
+                case ShipType.BOAT -> "b";
+                case ShipType.SHIP -> "s";
+                case ShipType.BATTLESHIP -> "B";
+                case ShipType.AIRCRAFTCARRIER -> "A";
             };
         } else {
             return "-";

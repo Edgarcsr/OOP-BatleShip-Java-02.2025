@@ -149,46 +149,46 @@ public class Board {
         Cell cell = grid[coordinate.getRow()][coordinate.getColumn()];
 
         if( cell.getCellStatus() == CellStatus.MISS || cell.getCellStatus() == CellStatus.HIT ) {
-            getResultShoot("ha fallado otra vez! Ya habías disparado a esta celda. No desperdicies disparos!!");
+            getResultShoot("Errou de novo! Você já atirou neste lugar. Não desperdice tiros!");
             return;
         }
 
         cell.processHit(coordinate);
 
-        String unexpectedResult = "No se ha procesado el disparo correctamente";
+        String unexpectedResult = "O disparo não foi processado corretamente";
 
         switch (cell.getCellStatus()) {
             //String.valueOf(row + 65);
             case MISS:
-                missedShoots.add("fallado en: ".concat((char) (coordinate.getRow() + 65) + "," + coordinate.getColumn()));
+                missedShoots.add("falhou em: ".concat((char) (coordinate.getRow() + 65) + "," + coordinate.getColumn()));
                 getResultShoot(missedShoots.getLast());
                 break;
             case HIT:
-                successfullyShots.add("acertado en: " + ((char) (coordinate.getRow() + 65) + "," + coordinate.getColumn()));
+                successfullyShots.add("acertou em: " + ((char) (coordinate.getRow() + 65) + "," + coordinate.getColumn()));
                 getResultShoot(successfullyShots.getLast());
                 if (cell.getShip().isSunk()) {
-                    destructiveShoots.put("hundido un: " + cell.getShip().getType(), isAllShipsSunk());
+                    destructiveShoots.put("afundou um: " + cell.getShip().getType(), isAllShipsSunk());
                     getResultShoot(destructiveShoots.keySet().toArray()[destructiveShoots.size() -1 ].toString());
                 }
                 break;
             default:
-                System.out.println(unexpectedResult + " Reinicia el juego ");
+                System.out.println(unexpectedResult + " Reiniciando o jogo ");
         }
     }
 
     private void getResultShoot(String result) {
-        System.out.println("Tu disparo ha " + result);
+        System.out.println("Seu tiro foi em " + result);
     }
 
     public boolean getLastDestructiveShoot() {
-        System.out.printf("El último disparo destructivo fue: %s%n", destructiveShoots);
+        System.out.printf("O último tiro destrutivo foi: %s%n", destructiveShoots);
         return destructiveShoots.values().toArray()[destructiveShoots.size() - 1].equals(true);
     }
 
     public void printPerformanceRank() {
         int totalShoots = missedShoots.size() + successfullyShots.size();
         if (totalShoots == 0) {
-            System.out.println("No se han realizado disparos.");
+            System.out.println("Nenhum tiro foi disparado.");
             return;
         }
         double failurePercentage = (double) missedShoots.size() / totalShoots * 100;
@@ -197,16 +197,18 @@ public class Board {
 
         String rango;
         if (failurePercentage >= 70) {
-            rango = "penoso";
+            rango = "medíocre";
         } else if (failurePercentage >= 50) {
-            rango = "chulapo";
+            rango = "fraco";
         } else if (failurePercentage >= 30) {
-            rango = "destructor";
+            rango = "destruidor";
         } else {
             rango = "rambo";
         }
-        System.out.printf("De %d disparos, has acertado %.2f%%, de los cuales %.2f%% han sido destructivos -> Eres %s%n", totalShoots, correctPercentage, destructivePercentage, rango);
-        System.out.printf("Has fallado %.2f%% de los disparos -> Eres %s%n", failurePercentage, rango);
+        System.out.printf("De %d tiros, você acertou %.2f%%, dos quais %.2f%% foram destrutivos -> Você é %s%n\n" +
+                "\n", totalShoots, correctPercentage, destructivePercentage, rango);
+        System.out.printf("Você errou %.2f%% dos seus tiros -> Você está %s%n\n" +
+                "\n", failurePercentage, rango);
     }
 
     public void printBoard(boolean reveal) {

@@ -2,8 +2,8 @@ package enums;
 
 public enum Difficulty {
     EASY(5, 3, 1, 1, 50, 10),
-    MEDIUM(2, 1, 1, 1, 30, 10),
-    HARD(1, 1, 0, 0, 10, 10);
+    MEDIUM(2, 1, 1, 1, 50, 15),
+    HARD(1, 1, 0, 0, 50, 30);
 
     final int lanchas,
         buques,

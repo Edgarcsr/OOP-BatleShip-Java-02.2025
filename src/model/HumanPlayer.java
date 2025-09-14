@@ -13,23 +13,23 @@ public class HumanPlayer extends Player {
 
     @Override
     public void nextShot(Board enemyBoard) {
-        System.out.println("Espabila!! "+ name + ", es tu turno !");
+        System.out.println("Acordar!! "+ name + ", é a sua vez !");
 
         if (attempts > 0) {
             Coordinate coordinatesChosen = getShotCoordinate();
 
-            if (attempts == 4) System.out.println("Te quedan pocos intentos, ¡aprieta!");
-            else if (attempts == 1) System.out.println("¡Último intento!");
+            if (attempts == 4) System.out.println("Você só tem mais algumas tentativas, se apresse!");
+            else if (attempts == 1) System.out.println("Última Tentativa");
 
           if (!suggestGotFailShot(coordinatesChosen)) {
-              System.out.printf("%s veo poco éxito en tu decisión.\n", name);
+              System.out.printf("%s vejo pouco sucesso em sua decisão.\n", name);
           }
 
             enemyBoard.registryShot(coordinatesChosen);
             attempts--;
             checkAttempts();
         } else {
-            System.out.println("Has agotado tus intentos, ¡mejor suerte la próxima vez!");
+            System.out.println("Acabou suas tentativas, mais sorte da próxima vez!");
         }
     }
 
@@ -38,9 +38,9 @@ public class HumanPlayer extends Player {
         int row, column;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Introduce las coordenadas del disparo (fila y columna):");
-        row = checkLetter(scanner, "Introduce la fila (A-J): ");
-        column = checkInt(scanner, "Introduce la columna (0-9): ");
+        System.out.println("Insira as coordenadas do disparo (fila e coluna):");
+        row = checkLetter(scanner, "Insira a fila (A-J): ");
+        column = checkInt(scanner, "Insira a coluna (0-9): ");
 
         return this.board.getCell(row, column).getCoordinate();
     }

@@ -11,19 +11,19 @@ public class CoordinatesValidator {
         String inputTemporary = scanner.nextLine().trim();
 
         if (inputTemporary.isEmpty()) {
-            System.out.println("No puedes dejar la coordenada vacía. Por favor, introduce un número entero válido para la fila.");
+            System.out.println("Não pode deixar a cordenada vazia. Por favor, insira um valor inteiro válido para a fila.");
             System.out.println();
-            return checkInt(scanner, "Introduce la fila (0-9): ");
+            return checkInt(scanner, "Insira a fila (0-9): ");
         } else {
             try {
                 row = Integer.parseInt(inputTemporary);
             } catch (NumberFormatException e) {
                 System.out.println();
-                System.out.println("Error: Debes introducir un número entero válido para la fila. ");
-                return checkInt(scanner, "Introduce la fila (0-9): ");
+                System.out.println("Error: Deve inserir um número inteiro válido para a fila ");
+                return checkInt(scanner, "Insira a fila (0-9): ");
             }
         }
-        return row >= 0 && row <= 9 ? row : checkInt(scanner, "No seas pirata, introduce un número entre 0 y 9: ");
+        return row >= 0 && row <= 9 ? row : checkInt(scanner, "Não seja pirata, insira um número entre 0 e 9: ");
     }
 
     public static int checkLetter(Scanner scanner, String message) {
@@ -33,18 +33,18 @@ public class CoordinatesValidator {
         String column;
 
         if (temporaryInput.isEmpty()) {
-            System.out.println("Error: No puedes dejar la coordenada vacía.");
+            System.out.println("Error: Nao pode deixar a coordenada vazia");
             System.out.println();
-            return checkLetter(scanner, "Introduce la columna (A-J): ");
+            return checkLetter(scanner, "Insira a coluna (A-J): ");
         } else if (temporaryInput.matches("\\d+|[!|·#$~%&/()=?¿'{¨}.,:;_]")) {
-            System.out.println("Error: Numeros o carácteres especiales no son válidos.");
+            System.out.println("Error: Numeros ou carácteres especiais não são válidos.");
             System.out.println();
-            return checkLetter(scanner, "Introduce la columna (A-J): ");
+            return checkLetter(scanner, "Insira a coluna (A-J): ");
         }
 
         column = temporaryInput.toUpperCase();
 
-        return (column.length() == 1 && column.charAt(0) >= 'A' && column.charAt(0) <= 'J') ? column.charAt(0) - 'A' : checkLetter(scanner, "No seas pirata, introduce solo una letra entre A y J: ");
+        return (column.length() == 1 && column.charAt(0) >= 'A' && column.charAt(0) <= 'J') ? column.charAt(0) - 'A' : checkLetter(scanner, "Nao seja pirata, insira uma letra so entre A e J: ");
     }
 }
 

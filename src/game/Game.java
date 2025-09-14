@@ -47,12 +47,13 @@ public class Game {
                 if (!playerTwo.getBoard().getDestructiveShoots().isEmpty()) {
                     if (playerTwo.getBoard().getLastDestructiveShoot()) {
                         declareWinner(playerOne);
-                        System.out.println("He asignado un ganador y no agotó sus intentos");
+                        System.out.println("Foi escolhido um vencedor e ele não esgotou suas tentativas.\n" +
+                                "\n");
                         declareLosser( playerOne.isWinner() ? playerTwo : playerOne );
                     }
                 }
             } else if (playerOne.isSpentAllAttempts()) {
-                System.out.println("El jugador " + playerOne.getName() + " agotó sus intentos.");
+                System.out.println("O jogador " + playerOne.getName() + " esgotou suas tentativas.");
                 declareWinner(playerTwo);
                 declareLosser( playerOne.isWinner() ? playerTwo : playerOne );
             }
@@ -60,7 +61,7 @@ public class Game {
     }
 
     private void showBoards(Player player) {
-        System.out.println("Tablero de " + player.getName() + ":");
+        System.out.println("Tabuleiro de " + player.getName() + ":");
         player.getBoard().printBoard(true);
     }
 

@@ -30,7 +30,7 @@ public class CpuPlayer extends Player {
             attempts--;
             checkAttempts();
         } else {
-            System.out.println("Has agotado tus intentos, ¡mejor suerte la próxima vez!");
+            System.out.println("Acabou suas tentativas, mais sorte da próxima vez!");
         }
     }
 
