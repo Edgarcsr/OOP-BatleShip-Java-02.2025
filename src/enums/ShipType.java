@@ -1,11 +1,12 @@
 package enums;
 
 public enum ShipType {
-    BOAT(1),
-    SHIP(3),
+    CARRIER(5),
     BATTLESHIP(4),
-    AIRCRAFTCARRIER(5);
-    
+    CRUISER(3),
+    SUBMARINE(3),
+    DESTROYER(2);
+
     private final int size;
 
     ShipType(int size) {

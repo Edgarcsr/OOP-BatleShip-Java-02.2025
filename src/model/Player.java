@@ -47,11 +47,22 @@ public abstract class Player {
         return  winner;
     }
 
-    public abstract void nextShot(Board enemyBoard);
-
     public void reset(int attempts) {
         this.winner = false;
         this.attempts = attempts;
         this.spentAllAttempts = false;
+    }
+
+    public abstract void nextShot(Board enemyBoard, Ship selectedShip);
+
+    public void nextShot(Board enemyBoard) {
+        // Método mantido para compatibilidade, usa o primeiro navio disponível
+        Ship firstAvailableShip = board.getShips().stream()
+                .filter(ship -> !ship.isSunk())
+                .findFirst()
+                .orElse(null);
+        if (firstAvailableShip != null) {
+            nextShot(enemyBoard, firstAvailableShip);
+        }
     }
 }

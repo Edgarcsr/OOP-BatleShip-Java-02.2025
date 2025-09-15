@@ -255,6 +255,10 @@ public class Board {
         return this.destructiveShoots;
     }
 
+    public List<Ship> getShips() {
+        return ships;
+    }
+
     public void resetBoard() {
         for (Cell[] row : grid) {
             for (Cell cell : row) {

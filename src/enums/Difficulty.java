@@ -1,22 +1,24 @@
 package enums;
 
 public enum Difficulty {
-    EASY(5, 3, 1, 1, 50, 10),
-    MEDIUM(2, 1, 1, 1, 50, 15),
-    HARD(1, 1, 0, 0, 50, 30);
+    EASY(1, 1, 1, 1, 2, 50, 10),
+    MEDIUM(1, 1, 1, 1, 2, 50, 15),
+    HARD(1, 1, 1, 1, 2, 50, 30);
 
-    final int lanchas,
-        buques,
-        acorazados,
-        portaaviones,
+    final int carrier,
+        battleship,
+        cruiser,
+        submarine,
+        destroyer,
         attempts,
         boardSize;
 
-    Difficulty(int lanchas, int buques, int acorazados, int portaaviones, int attempts, int boardSize) {
-        this.lanchas = lanchas;
-        this.buques = buques;
-        this.acorazados = acorazados;
-        this.portaaviones = portaaviones;
+    Difficulty(int carrier, int battleship, int cruiser, int submarine, int destroyer, int attempts, int boardSize) {
+        this.carrier = carrier;
+        this.battleship = battleship;
+        this.cruiser = cruiser;
+        this.submarine = submarine;
+        this.destroyer = destroyer;
         this.attempts = attempts;
         this.boardSize = boardSize;
     }
@@ -31,15 +33,16 @@ public enum Difficulty {
 
     public int getQuantityKindOfBoat(ShipType shipType) {
         return switch (shipType) {
-            case BOAT -> lanchas;
-            case SHIP -> buques;
-            case BATTLESHIP -> acorazados;
-            case AIRCRAFTCARRIER -> portaaviones;
+            case CARRIER -> carrier;
+            case BATTLESHIP -> battleship;
+            case CRUISER -> cruiser;
+            case SUBMARINE -> submarine;
+            case DESTROYER -> destroyer;
         };
     }
 
     public int getTotalQuantityBoats() {
-        return lanchas + buques + acorazados + portaaviones;
+        return carrier + battleship + cruiser + submarine + destroyer;
     }
 
     public Difficulty getDifficulty() {

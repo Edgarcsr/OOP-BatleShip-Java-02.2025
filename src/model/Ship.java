@@ -38,5 +38,13 @@ public class Ship {
     public void reset() {
         hitsCoordinates.clear();
     }
+
+    public boolean hasSpecialPower() {
+        return type == ShipType.CARRIER;
+    }
+
+    public int getShotCount() {
+        return hasSpecialPower() ? 3 : 1;
+    }
 }
 
