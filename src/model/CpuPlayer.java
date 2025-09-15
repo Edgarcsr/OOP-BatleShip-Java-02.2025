@@ -36,7 +36,7 @@ public class CpuPlayer extends Player {
             int shotCount = selectedShip.getShotCount();
             
             if (selectedShip.hasSpecialPower()) {
-                System.out.printf("CPU está usando o %s com poder especial (%d tiros)!\n", 
+                System.out.printf("🤖 CPU está usando o %s com poder especial (%d torpedos)! 🤖\n", 
                                 selectedShip.getType().name(), shotCount);
             }
             

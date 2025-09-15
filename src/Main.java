@@ -17,11 +17,11 @@ public class Main {
                 game.resetGame();
             }
             assert game != null;
-            System.out.println("Que começe o jogo!");
+            System.out.println("🌊 Que comece a batalha naval! 🌊");
             game.play();
             if (game.onDeclaredWinner()) {
-                System.out.println("O ganhador é: " + game.getWinner().getName());
-                System.out.println("Esse é o tabuleiro inimigo:");
+                System.out.println("🏆 O vencedor desta batalha naval é: " + game.getWinner().getName() + " 🏆");
+                System.out.println("🗺️  Este é o mapa final do inimigo:");
                 game.getLoser().getBoard().printBoard(true);
                 menu.printResults();
             }

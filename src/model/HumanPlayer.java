@@ -14,7 +14,7 @@ public class HumanPlayer extends Player {
 
     @Override
     public void nextShot(Board enemyBoard) {
-        System.out.println("Acordar!! " + name + ", é a sua vez !");
+        System.out.println("⚡ Alle mann an Deck!! " + name + ", é a sua vez de atacar! ⚡");
 
         if (attempts > 0) {
             // Mostrar navios disponíveis para escolha
@@ -33,12 +33,12 @@ public class HumanPlayer extends Player {
         if (attempts > 0) {
             int shotCount = selectedShip.getShotCount();
             
-            System.out.printf("Você selecionou o %s que pode dar %d tiro(s)!\n", 
+            System.out.printf("⚓ Você selecionou o %s que pode disparar %d torpedo(s)! ⚓\n", 
                             selectedShip.getType().name(), shotCount);
             
             for (int i = 0; i < shotCount && attempts > 0; i++) {
                 if (shotCount > 1) {
-                    System.out.printf("Tiro %d de %d:\n", i + 1, shotCount);
+                    System.out.printf("🎯 Torpedo %d de %d:\n", i + 1, shotCount);
                 }
                 
                 Coordinate coordinatesChosen = getShotCoordinate();
@@ -72,10 +72,10 @@ public class HumanPlayer extends Player {
             return null;
         }
 
-        System.out.println("Escolha um navio para atirar:");
+        System.out.println("🚢 Escolha um navio da sua frota para atacar:");
         for (int i = 0; i < availableShips.size(); i++) {
             Ship ship = availableShips.get(i);
-            String specialPower = ship.hasSpecialPower() ? " (PODER ESPECIAL - 3 TIROS!)" : "";
+            String specialPower = ship.hasSpecialPower() ? " ⚡(PODER ESPECIAL - 3 TORPEDOS!)⚡" : "";
             System.out.printf("%d. %s (Tamanho: %d)%s\n", 
                             i + 1, ship.getType().name(), ship.getType().getSize(), specialPower);
         }
@@ -103,9 +103,9 @@ public class HumanPlayer extends Player {
         int row, column;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Insira as coordenadas do disparo (fila e coluna):");
-        row = checkLetter(scanner, "Insira a fila (A-J): ");
-        column = checkInt(scanner, "Insira a coluna (0-9): ");
+        System.out.println("🎯 Insira as coordenadas do torpedo (fila e coluna):");
+        row = checkLetter(scanner, "⚓ Insira a fila (A-J): ");
+        column = checkInt(scanner, "🌊 Insira a coluna (0-9): ");
 
         return this.board.getCell(row, column).getCoordinate();
     }

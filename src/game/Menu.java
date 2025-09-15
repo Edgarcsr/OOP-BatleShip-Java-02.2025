@@ -36,6 +36,7 @@ public class Menu {
 
     public void showMenu() {
         String header = """
+                      ~~~~ BATALHA NAVAL OCEÂNICA ~~~~
                              ______     ______     ______   __         ______  \s
                             /\\  == \\   /\\  __ \\   /\\__  _\\ /\\ \\       /\\  ___\\ \s
                             \\ \\  __<   \\ \\  __ \\  \\/_/\\ \\/ \\ \\ \\____  \\ \\  __\\ \s
@@ -47,6 +48,7 @@ public class Menu {
                                      \\ \\___  \\  \\ \\  __ \\  \\ \\ \\  \\ \\  _-/     \s
                                       \\/\\_____\\  \\ \\_\\ \\_\\  \\ \\_\\  \\ \\_\\       \s
                                        \\/_____/   \\/_/\\/_/   \\/_/   \\/_/        \
+                                    🌊 VERSÃO OCEÂNICA ESPECIAL 🌊
                 """;
         System.out.println(header);
         System.out.println();
@@ -64,15 +66,16 @@ public class Menu {
                                     +---------------___[}-_===_.'____               /\\
                                 ____`-' ||___-{]_| _[}-  |     |_[___\\==--          \\/   _
                  __..._____--==/___]_|__|_____________________________[___\\==--___,-----' .7
-                |  Henrico 081230027, Edgar 081230039, Nicholas 081230038, Vitor 081230024 /
+                |  🚢 Henrico, Edgar, Nicholas, Vitor - Almirantes da Esquadra Naval 🚢  /
                  \\_______________________________________________________________________|""";
         System.out.println(boat);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("                         Se prepare para batalha!");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("           ⚓ Navegue pelos mares e domine os oceanos! ⚓");
+        System.out.println("                🌊 Ondas marcam território inexplorado 🌊");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
         System.out.println();
-        System.out.println();
-        System.out.println("-------------------- PRESIONA ENTER PARA SAIR OU QUALQUER TECLA PARA CONTINUAR --------------------");
+        System.out.println("------------ ⚡ PRESSIONE ENTER PARA ZARPAR OU QUALQUER TECLA PARA BATALHAR ⚡ ------------");
 
         if (!scanner.nextLine().isEmpty()) {
             setSelectOptionsGame("difficulty");
@@ -85,10 +88,11 @@ public class Menu {
     }
 
     private void showDifficultySelection(Difficulty difficulty) {
-        System.out.println("####################################################");
-        System.out.printf("  Vocês escolheram a dificuldade %s \n", difficulty.getDifficulty());
-        System.out.printf("  Tens %d disparos para usar e %d barcos de guerra \n", difficulty.getAttempts(), difficulty.getTotalQuantityBoats());
-        System.out.println("####################################################");
+        System.out.println("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊");
+        System.out.printf("  ⚓ Vocês escolheram navegar em águas %s ⚓\n", difficulty.getDifficulty());
+        System.out.printf("  🎯 Tens %d torpedos para usar e %d navios inimigos para afundar 🎯\n", difficulty.getAttempts(), difficulty.getTotalQuantityBoats());
+        System.out.println("  🌊 Lembrem-se: ~ representa as ondas do oceano! 🌊");
+        System.out.println("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊");
         System.out.println();
     }
 
@@ -101,9 +105,9 @@ public class Menu {
         System.out.println("|=========================================|");
         System.out.printf("|    %S             Número      |\n", (caseSelection.equals("difficulty") ? "Dificuldade" : "Modo de Jogo"));
         System.out.println("|    ----------             ------        |");
-        System.out.printf("|    %s%s1           |\n", (caseSelection.equals("difficulty") ? "Covarde" : "Jogador vs Jogador"), caseSelection.equals("difficulty") ? getSpaces("Covarde") : getSpaces("Jogador vs Jogador"));
-        System.out.printf("|    %s%s2           |\n", (caseSelection.equals("difficulty") ? "Aventureiro" : "Jogador vs CPU"), caseSelection.equals("difficulty") ? getSpaces("Aventureiro") : getSpaces("Jogador vs CPU"));
-        System.out.printf("|    %s%s3           |\n", (caseSelection.equals("difficulty") ? "Destruidor" : "CPU vs CPU"), caseSelection.equals("difficulty") ? getSpaces("Destruidor") : getSpaces("CPU vs CPU"));
+        System.out.printf("|    %s%s1           |\n", (caseSelection.equals("difficulty") ? "⛵ Marinheiro" : "Jogador vs Jogador"), caseSelection.equals("difficulty") ? getSpaces("⛵ Marinheiro") : getSpaces("Jogador vs Jogador"));
+        System.out.printf("|    %s%s2           |\n", (caseSelection.equals("difficulty") ? "🚢 Capitão" : "Jogador vs CPU"), caseSelection.equals("difficulty") ? getSpaces("🚢 Capitão") : getSpaces("Jogador vs CPU"));
+        System.out.printf("|    %s%s3           |\n", (caseSelection.equals("difficulty") ? "⚓ Almirante" : "CPU vs CPU"), caseSelection.equals("difficulty") ? getSpaces("⚓ Almirante") : getSpaces("CPU vs CPU"));
         System.out.println("|=========================================|");
         System.out.println();
         System.out.printf("Insira o número correspondente %s da sua partida:", (caseSelection.equals("difficulty")) ? "a Dificuldade" : "ao modo de jogo");
@@ -137,20 +141,22 @@ public class Menu {
     private void setPlayerNames(GameMode gameModeSelected) {
 
         String temporalPlayerName = switch (difficultySelected) {
-            case EASY -> "Covarde";
-            case MEDIUM -> "Aventureiro";
-            case HARD -> "Destruidor";
+            case EASY -> "Marinheiro";
+            case MEDIUM -> "Capitão";
+            case HARD -> "Almirante";
         };
 
         if(gameModeSelected != GameMode.CPUTOCPU) {
-            System.out.println("-------------------------------------------------");
-            System.out.println("   É hora de os jogadores se apresentarem!   ");
-            System.out.println();
+            System.out.println("🌊~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~🌊");
+            System.out.println("     ⚓ É hora dos almirantes se apresentarem! ⚓   ");
+            System.out.println("              🚢 Preparem-se para zarpar! 🚢");
+            System.out.println("🌊~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~🌊");
             System.out.println();
         } else {
-            System.out.println("-------------------------------------------------");
-            System.out.println("    Os robôs se preparem para a batalha!     ");
-            System.out.println();
+            System.out.println("🌊~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~🌊");
+            System.out.println("      🤖 As IAs se preparam para a batalha naval! 🤖     ");
+            System.out.println("           ⚡ Que a melhor estratégia vença! ⚡");
+            System.out.println("🌊~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~🌊");
             System.out.println();
         }
 

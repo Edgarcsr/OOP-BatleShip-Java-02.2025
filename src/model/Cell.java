@@ -53,13 +53,14 @@ public class Cell {
             return "O";
         } else if (reveal && status == CellStatus.SHIP) {
             return switch(ship.getType()) {
-                case ShipType.BOAT -> "b";
-                case ShipType.SHIP -> "s";
-                case ShipType.BATTLESHIP -> "B";
-                case ShipType.AIRCRAFTCARRIER -> "A";
+                case CARRIER -> "C";
+                case BATTLESHIP -> "B";
+                case CRUISER -> "R";
+                case SUBMARINE -> "S";
+                case DESTROYER -> "D";
             };
         } else {
-            return "-";
+            return "~";
         }
     }
 
