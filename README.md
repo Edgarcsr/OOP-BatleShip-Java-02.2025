@@ -1,22 +1,19 @@
 # 🚢 Batalha Naval Oceânica - Java# 🚢 _Batalha Naval em Java_
 
-<p align="center">Bem-vindo à **Batalha Naval**, o clássico jogo de estratégia em versão Java! Um pouco simplificado, mas igualmente emocionante. Desafie o computador, jogue com outro jogador ou coloque o computador para competir contra si mesmo. Teste sua pontaria e afunde todos os navios inimigos antes que eles acabem com os seus.
-
 <img src="https://img.shields.io/badge/Projeto-Batalha%20Naval%20Oceânica-0066CC?style=for-the-badge&logo=java&logoColor=white" />
-
-<img src="https://img.shields.io/badge/Linguagem-Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />Batalha Naval é um jogo de turnos onde dois jogadores posicionam seus navios em um tabuleiro oculto. O objetivo: adivinhar as posições dos navios rivais e afundá-los antes de ficar sem tentativas.
-
-<img src="https://img.shields.io/badge/Paradigma-POO-4CAF50?style=for-the-badge&logo=objectoriented&logoColor=white" />Inclui diferentes níveis de dificuldade, reinício de partidas e uma interface amigável por console. _Em breve: interface avançada com Lanterna!_
+<img src="https://img.shields.io/badge/Linguagem-Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+<img src="https://img.shields.io/badge/Paradigma-POO-4CAF50?style=for-the-badge&logo=objectoriented&logoColor=white" />
 
 <img src="https://img.shields.io/badge/Status-Completo-00C851?style=for-the-badge&logo=checkmarx&logoColor=white" />
+<img src="https://img.shields.io/badge/Versão-2.0%20Oceânica-1E88E5?style=flat-square" />
+<img src="https://img.shields.io/badge/Java-8%2B-orange?style=flat-square&logo=java" />
+
+<p align="center">
+Bem-vindo à **Batalha Naval**, o clássico jogo de estratégia em versão Java! Um pouco simplificado, mas igualmente emocionante. Desafie o computador, jogue com outro jogador ou coloque o computador para competir contra si mesmo. Teste sua pontaria e afunde todos os navios inimigos antes que eles acabem com os seus.
 
 </p>---
 
-<p align="center">## 🎮 *Padrão...*
-
-  <img src="https://img.shields.io/badge/Versão-2.0%20Oceânica-1E88E5?style=flat-square" />
-
-<img src="https://img.shields.io/badge/Java-8%2B-orange?style=flat-square&logo=java" />Este projeto implementa o padrão _Game Loop_, fundamental no desenvolvimento de videogames. O loop principal gerencia a entrada do usuário, atualiza o estado do jogo e renderiza a interface a cada turno, garantindo um fluxo ordenado e eficiente. Essa abordagem facilita a expansão futura do jogo, como a incorporação de animações, sons ou interfaces gráficas.
+Este projeto implementa o padrão _Game Loop_, fundamental no desenvolvimento de videogames. O loop principal gerencia a entrada do usuário, atualiza o estado do jogo e renderiza a interface a cada turno, garantindo um fluxo ordenado e eficiente. Essa abordagem facilita a expansão futura do jogo, como a incorporação de animações, sons ou interfaces gráficas.
 
   <img src="https://img.shields.io/badge/Licença-MIT-green?style=flat-square" />
 
