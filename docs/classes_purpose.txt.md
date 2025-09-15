@@ -1,104 +1,132 @@
-### Flujo de cada clase y sus relaciones
+### Fluxo de cada classe e suas relações
 
-#### **1. `ShipType` (Enum)**
-- **Propósito**: Define los tipos de barcos y su tamaño.
-- **Relaciones**:
-  - Es utilizado por la clase `Ship` para determinar el tipo y tamaño del barco.
-- **Flujo**:
-  - Cuando se crea un barco, se asigna un `ShipType` para definir su tamaño.
+*1. ShipType (Enum)*
 
----
+* *Propósito:* Define os tipos de navios e seu tamanho.
+* *Relações:*
 
-#### **2. `CellStatus` (Enum)**
-- **Propósito**: Representa el estado de una celda (`EMPTY`, `SHIP`, `MISS`, `HIT`).
-- **Relaciones**:
-  - Es utilizado por la clase `Cell` para gestionar su estado.
-- **Flujo**:
-  - El estado de la celda cambia según las acciones del juego (colocar un barco, recibir un disparo, etc.).
+  * É utilizado pela classe *Ship* para determinar o tipo e o tamanho do navio.
+* *Fluxo:*
+
+  * Quando um navio é criado, é atribuído um *ShipType* para definir seu tamanho.
 
 ---
 
-#### **3. `Coordinate`**
-- **Propósito**: Representa una posición en el tablero mediante filas y columnas.
-- **Relaciones**:
-  - Es utilizado por `Ship` para definir las coordenadas que ocupa.
-  - Es pasado como argumento en métodos de `Board` y `Cell` para identificar posiciones.
-- **Flujo**:
-  - Se utiliza para identificar y comparar posiciones en el tablero.
+*2. CellStatus (Enum)*
+
+* *Propósito:* Representa o estado de uma célula (*EMPTY, **SHIP, **MISS, **HIT*).
+* *Relações:*
+
+  * É utilizado pela classe *Cell* para gerenciar seu estado.
+* *Fluxo:*
+
+  * O estado da célula muda conforme as ações do jogo (colocar um navio, receber um disparo, etc.).
 
 ---
 
-#### **4. `Ship`**
-- **Propósito**: Representa un barco con un tipo, coordenadas ocupadas y coordenadas impactadas.
-- **Relaciones**:
-  - Contiene una lista de `Coordinate` para las posiciones que ocupa.
-  - Es referenciado por `Cell` para indicar si una celda contiene un barco.
-- **Flujo**:
-  - Cuando un barco es colocado en el tablero, se asignan sus coordenadas.
-  - Si una celda que contiene el barco es impactada, el barco registra el impacto en la coordenada correspondiente.
-  - Determina si está hundido al comparar las coordenadas impactadas con las ocupadas.
+*3. Coordinate*
+
+* *Propósito:* Representa uma posição no tabuleiro através de linhas e colunas.
+* *Relações:*
+
+  * É utilizado por *Ship* para definir as coordenadas que ocupa.
+  * É passado como argumento em métodos de *Board* e *Cell* para identificar posições.
+* *Fluxo:*
+
+  * Usado para identificar e comparar posições no tabuleiro.
 
 ---
 
-#### **5. `Cell`**
-- **Propósito**: Representa una celda del tablero, que puede contener un barco y tener un estado.
-- **Relaciones**:
-  - Puede contener una referencia a un `Ship`.
-  - Utiliza `CellStatus` para gestionar su estado.
-- **Flujo**:
-  - Cuando se coloca un barco, la celda cambia su estado a `SHIP`.
-  - Si recibe un disparo, llama al método del barco para registrar el impacto y actualiza su estado (`HIT` o `MISS`).
+*4. Ship*
+
+* *Propósito:* Representa um navio com um tipo, coordenadas ocupadas e coordenadas atingidas.
+* *Relações:*
+
+  * Contém uma lista de *Coordinate* para as posições que ocupa.
+  * É referenciado por *Cell* para indicar se uma célula contém um navio.
+* *Fluxo:*
+
+  * Quando o navio é colocado no tabuleiro, são atribuídas suas coordenadas.
+  * Se uma célula que contém o navio for atingida, o navio registra o impacto na coordenada correspondente.
+  * Determina se está afundado comparando as coordenadas atingidas com as ocupadas.
 
 ---
 
-#### **6. `Board`**
-- **Propósito**: Representa el tablero del jugador, compuesto por una matriz de celdas y una lista de barcos.
-- **Relaciones**:
-  - Contiene una matriz de `Cell` y una lista de `Ship`.
-  - Utiliza `Coordinate` para identificar posiciones.
-- **Flujo**:
-  - Gestiona la colocación de barcos en celdas específicas.
-  - Procesa disparos al identificar la celda correspondiente y delegar la acción.
-  - Verifica si todos los barcos han sido hundidos.
+*5. Cell*
+
+* *Propósito:* Representa uma célula do tabuleiro, que pode conter um navio e ter um estado.
+* *Relações:*
+
+  * Pode conter uma referência a um *Ship*.
+  * Utiliza *CellStatus* para gerenciar seu estado.
+* *Fluxo:*
+
+  * Quando um navio é colocado, a célula muda seu estado para *SHIP*.
+  * Se receber um disparo, chama o método do navio para registrar o impacto e atualiza seu estado (*HIT* ou *MISS*).
 
 ---
 
-#### **7. `Player`**
-- **Propósito**: Representa a un jugador con un nombre y un tablero.
-- **Relaciones**:
-  - Posee un `Board` para gestionar su tablero.
-  - Interactúa con otro `Player` al disparar a su tablero.
-- **Flujo**:
-  - Coloca sus barcos en su tablero.
-  - Dispara a las coordenadas del tablero del oponente.
-  - Verifica si ha perdido al comprobar si todos sus barcos están hundidos.
+*6. Board*
+
+* *Propósito:* Representa o tabuleiro do jogador, composto por uma matriz de células e uma lista de navios.
+* *Relações:*
+
+  * Contém uma matriz de *Cell* e uma lista de *Ship*.
+  * Utiliza *Coordinate* para identificar posições.
+* *Fluxo:*
+
+  * Gerencia a colocação de navios em células específicas.
+  * Processa disparos identificando a célula correspondente e delegando a ação.
+  * Verifica se todos os navios foram afundados.
 
 ---
 
-#### **8. `Game`**
-- **Propósito**: Representa la lógica principal del juego, incluyendo jugadores y turnos.
-- **Relaciones**:
-  - Gestiona dos instancias de `Player`.
-  - Coordina las interacciones entre los tableros de los jugadores.
-- **Flujo**:
-  - Configura el juego inicial (colocación de barcos).
-  - Alterna turnos entre los jugadores.
-  - Determina si el juego ha terminado y declara un ganador.
+*7. Player*
+
+* *Propósito:* Representa um jogador com um nome e um tabuleiro.
+* *Relações:*
+
+  * Possui um *Board* para gerenciar seu tabuleiro.
+  * Interage com outro *Player* ao disparar contra seu tabuleiro.
+* *Fluxo:*
+
+  * Coloca seus navios em seu tabuleiro.
+  * Dispara contra as coordenadas do tabuleiro do oponente.
+  * Verifica se perdeu ao checar se todos os seus navios foram afundados.
 
 ---
 
-#### **9. `Main`**
-- **Propósito**: Contiene el punto de entrada del programa.
-- **Relaciones**:
-  - Crea una instancia de `Game` y la inicia.
-- **Flujo**:
-  - Inicia el juego y gestiona la interacción con el usuario.
+*8. Game*
+
+* *Propósito:* Representa a lógica principal do jogo, incluindo jogadores e turnos.
+* *Relações:*
+
+  * Gerencia duas instâncias de *Player*.
+  * Coordena as interações entre os tabuleiros dos jogadores.
+* *Fluxo:*
+
+  * Configura o jogo inicial (colocação dos navios).
+  * Alterna turnos entre os jogadores.
+  * Determina se o jogo terminou e declara um vencedor.
 
 ---
 
-### Resumen del flujo general
-1. **Inicio del juego**: `Main` crea una instancia de `Game` y la inicia.
-2. **Configuración**: `Game` configura los tableros de los jugadores (`Player`) y coloca los barcos (`Ship`) en las celdas (`Cell`) del tablero (`Board`).
-3. **Turnos**: Los jugadores alternan turnos disparando a las coordenadas del tablero del oponente.
-4. **Impactos**: El tablero procesa el disparo, identifica la celda correspondiente y actualiza su estado. Si hay un barco, este registra el impacto.
-5. **Fin del juego**: `Game` verifica si todos los barcos de un jugador están hundidos y declara un ganador.
+*9. Main*
+
+* *Propósito:* Contém o ponto de entrada do programa.
+* *Relações:*
+
+  * Cria uma instância de *Game* e a inicia.
+* *Fluxo:*
+
+  * Inicia o jogo e gerencia a interação com o usuário.
+
+---
+
+### Resumo do fluxo geral
+
+1. *Início do jogo:* Main cria uma instância de Game e a inicia.
+2. *Configuração:* Game configura os tabuleiros dos jogadores (Player) e coloca os navios (Ship) nas células (Cell) do tabuleiro (Board).
+3. *Turnos:* Os jogadores alternam turnos disparando contra coordenadas do tabuleiro do oponente.
+4. *Impactos:* O tabuleiro processa o disparo, identifica a célula correspondente e atualiza seu estado. Se houver um navio, este registra o impacto.
+5. *Fim do jogo:* Game verifica se todos os navios de um jogador foram afundados e declara um vencedor.

@@ -1,44 +1,43 @@
-# 🚢 Batalla Naval en Java
+# 🚢 *Batalha Naval em Java*
 
-¡Bienvenido a **Batalla Naval**, el clásico juego de estrategia en versión Java! Un poco simplificado, pero igual de emocionante.
-Desafía a la computadora, juega con otro jugador o pon a la computadora a competir con ella misma. 
-Pon a prueba tu puntería y hunde todos los barcos enemigos antes de que acaben con los tuyos.  
+Bem-vindo à **Batalha Naval**, o clássico jogo de estratégia em versão Java! Um pouco simplificado, mas igualmente emocionante. Desafie o computador, jogue com outro jogador ou coloque o computador para competir contra si mesmo. Teste sua pontaria e afunde todos os navios inimigos antes que eles acabem com os seus.
 
-Batalla Naval es un juego por turnos donde dos jugadores colocan sus barcos en un tablero oculto. El objetivo: adivinar las posiciones de los barcos rivales y hundirlos antes de quedarte sin intentos.  
-Incluye distintos niveles de dificultad, reinicio de partidas y una interfaz amigable por consola. ¡Próximamente, interfaz avanzada con Lanterna!
+Batalha Naval é um jogo de turnos onde dois jogadores posicionam seus navios em um tabuleiro oculto. O objetivo: adivinhar as posições dos navios rivais e afundá-los antes de ficar sem tentativas.
+Inclui diferentes níveis de dificuldade, reinício de partidas e uma interface amigável por console. *Em breve: interface avançada com Lanterna!*
 
 ---
 
-## 🎮 Patron...
+## 🎮 *Padrão...*
 
-Este proyecto implementa el patrón Game Loop, fundamental en el desarrollo de videojuegos. El bucle principal gestiona la entrada del usuario, actualiza el estado del juego y renderiza la interfaz en cada turno, asegurando un flujo ordenado y eficiente. Este enfoque facilita la extensión futura del juego, como la incorporación de animaciones, sonidos o interfaces gráficas.
+Este projeto implementa o padrão *Game Loop*, fundamental no desenvolvimento de videogames. O loop principal gerencia a entrada do usuário, atualiza o estado do jogo e renderiza a interface a cada turno, garantindo um fluxo ordenado e eficiente. Essa abordagem facilita a expansão futura do jogo, como a incorporação de animações, sons ou interfaces gráficas.
 
 ---
 
-## 🚀 ¿Cómo empezar?
+## 🚀 *Como começar?*
 
-### 1. Requisitos
+### 1. *Requisitos*
 
-- **Java 8** o superior
-- (Opcional) **IntelliJ IDEA** u otro IDE compatible
+-   **Java 8** ou superior
+-   (Opcional) **IntelliJ IDEA** ou outro IDE compatível
 
-### 2. Instalación y ejecución
+### 2. *Instalação e execução*
 
-1. **Clona el repositorio:**
+1. **Clone o repositório:**
    ```bash
-   git clone <URL-del-repositorio>
-    ```
-2. **Compila el proyecto:**
+   git clone <URL-do-repositório>
+   ```
+
+2. **Compile o projeto:**
    ```bash
    javac -d out src/**/*.java
    ```
-3. **Ejecuta el juego:**
+
+3. **Execute o jogo:**
    ```bash
    java -cp out Main
    ```
-👨‍💻 Créditos
-Desarrollado con pasión por Tian.
-¡Contribuciones y sugerencias son bienvenidas!
 
-¿Listo para la batalla?
-¡Clona, compila y juega! 🚢💥
+👨‍💻 *Créditos*
+Desenvolvido com paixão por Tian. Contribuições e sugestões são bem-vindas!
+
+Pronto para a batalha? Clone, compile e jogue! 🚢💥
