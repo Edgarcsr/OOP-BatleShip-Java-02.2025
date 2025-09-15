@@ -11,13 +11,8 @@
   <img src="https://img.shields.io/badge/Versão-2.0%20Oceânica-1E88E5?style=flat-square" />
   <img src="https://img.shields.io/badge/Java-8%2B-orange?style=flat-square&logo=java" />
   <img src="https://img.shields.io/badge/Licença-MIT-green?style=flat-square" />
-</p>---
-
-Este projeto implementa o padrão _Game Loop_, fundamental no desenvolvimento de videogames. O loop principal gerencia a entrada do usuário, atualiza o estado do jogo e renderiza a interface a cada turno, garantindo um fluxo ordenado e eficiente. Essa abordagem facilita a expansão futura do jogo, como a incorporação de animações, sons ou interfaces gráficas.
-
-</p>---
-
----## 🚀 _Como começar?_
+</p>
+</p>
 
 ## 🌊 **Sobre o Projeto**### 1. _Requisitos_
 
