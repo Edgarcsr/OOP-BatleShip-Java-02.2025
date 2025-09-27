@@ -18,7 +18,7 @@ public class BoatsGenerator {
 
         kindsOfBoats.forEach(boat -> {
            for(int i = 0; i < difficulty.getQuantityKindOfBoat(boat); i++ ) {
-                boats.add(new Ship(boat, (boat == ShipType.AIRCRAFTCARRIER ? Orientation.VERTICAL : Orientation.HORIZONTAL)));
+                boats.add(new Ship(boat, (boat == ShipType.CARRIER ? Orientation.VERTICAL : Orientation.HORIZONTAL)));
            }
         });
 

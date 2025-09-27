@@ -282,6 +282,10 @@ public class Menu {
         return difficultySelected;
     }
 
+    public int getCurrentBordSize(){
+        return difficultySelected.getBoardSize();
+    }
+
     public Player getPlayerOne () {
         return switch (gameModeSelected) {
             case PLAYERTOPLAYER, PLAYERTOCPU -> (HumanPlayer) playerOne;

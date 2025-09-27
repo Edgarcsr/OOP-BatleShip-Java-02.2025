@@ -104,8 +104,8 @@ public class HumanPlayer extends Player {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("🎯 Insira as coordenadas do torpedo (fila e coluna):");
-        row = checkLetter(scanner, "⚓ Insira a fila (A-J): ");
-        column = checkInt(scanner, "🌊 Insira a coluna (0-9): ");
+        row = checkLetter(scanner, "⚓ Insira a fila (A, B, C...): ");
+        column = checkInt(scanner, "🌊 Insira a coluna (0, 1, 2...): ");
 
         return this.board.getCell(row, column).getCoordinate();
     }
